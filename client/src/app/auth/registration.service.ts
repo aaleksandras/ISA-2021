@@ -8,6 +8,6 @@ import { AbstractRestService } from '../shared/abstract-rest.service';
 })
 export class RegistrationService extends AbstractRestService<RegistrationModel> {
   constructor(public http: HttpClient) {
-    super(http, '/api/register');
+    super(http, '/api/user');
   }
 }
