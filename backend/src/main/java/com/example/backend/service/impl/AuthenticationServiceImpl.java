@@ -32,7 +32,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     @Override
     public AuthResponse login(AuthRequest dto) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User data = (User) authentication.getPrincipal();
         Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) authentication.getAuthorities();

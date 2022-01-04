@@ -3,14 +3,11 @@ import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {DefaultModel} from "./default-model";
 
-@Injectable({
-  providedIn: 'root'
-})
 export class AbstractRestService<T extends DefaultModel> {
 
   private baseUrl: string = 'http://localhost:8080'
 
-  constructor(private http: HttpClient, private resourceUrl: string) { }
+  constructor(public http: HttpClient, protected resourceUrl: string) { }
 
 
   create(t: T): Observable<HttpResponse<T>> {
