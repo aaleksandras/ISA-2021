@@ -1,8 +1,10 @@
-insert into users (id, deleted, first_name, last_name, email, password, type_of_user, phone_number) values
-    ('623a2230-17fa-4fa6-b96f-291803e84f0b', false ,'Marko', 'Markovic', 'marko@gmail.com', 'marko123', 0, '+381-64-123-11-11');
+insert into users (id, username, deleted, first_name, last_name, email, password, type_of_user, phone_number, address, city, country) values
+    ('623a2230-17fa-4fa6-b96f-291803e84f0b', 'marko123', false ,'Marko', 'Markovic', 'marko@gmail.com', '$2a$12$fB5RqVpYN/WUl3saxHn49Ouckh20MVcdy5Br50OchE6yr0ijgGWse', 0, '+381-64-123-11-11', 'Bulevar 3', 'Novi Sad', 'Srbija');
+
+insert into administrators(id) values ('623a2230-17fa-4fa6-b96f-291803e84f0b');
 
 insert into roles (id, deleted, name) values ('380b2cf1-7f15-4694-8fb7-9a3246a10691', false, 'ROLE_ADMINISTRATOR'),
-                                             ('cf782a9b-9d3b-47d2-8cad-0b5bf38de251', false, 'ROLE_CUSTOMER');
+                                             ('cf782a9b-9d3b-47d2-8cad-0b5bf38de251', false, 'ROLE_CLIENT');
 
 
 insert into users_roles(user_id, role_id) values ('623a2230-17fa-4fa6-b96f-291803e84f0b', '380b2cf1-7f15-4694-8fb7-9a3246a10691');

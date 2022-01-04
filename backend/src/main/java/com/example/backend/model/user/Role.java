@@ -1,6 +1,7 @@
 package com.example.backend.model.user;
 
 import com.example.backend.model.DefaultModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
