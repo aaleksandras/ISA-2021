@@ -1,5 +1,6 @@
 package com.example.backend.service.impl;
 
+import com.example.backend.email.EmailSender;
 import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.user.*;
 import com.example.backend.repository.*;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -71,6 +73,7 @@ public class UserServiceImpl implements IUserService {
         user.setPhoneNumber(dto.getPhoneNumber());
         user.setRoles(getRoleForUser(roleName));
         user.setUsername(dto.getEmail());
+        user.setIsActive(false);
         return user;
     }
 
@@ -79,4 +82,12 @@ public class UserServiceImpl implements IUserService {
         roles.add(roleRepository.findRoleByName(roleName));
         return roles;
     }
+
+    @Override
+    public User updateStatus(UUID id) {
+        User user = this.userRepository.getById(id);
+        user.setIsActive(true);
+        return this.userRepository.save(user);
+    }
+
 }

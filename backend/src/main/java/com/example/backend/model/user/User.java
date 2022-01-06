@@ -48,6 +48,9 @@ public abstract class User extends DefaultModel implements UserDetails {
     @Column(name = "country")
     private String country;
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
