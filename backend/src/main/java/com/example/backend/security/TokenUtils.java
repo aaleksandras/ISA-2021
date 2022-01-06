@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
 @Component
 public class TokenUtils {
 
-    @Value("CarDealership")
+    @Value("spring-security-example")
     private String APP_NAME;
 
-    @Value("37a03363763c8e5e8d14a9b0e3acec4b831ffd7c2d00251f3c96adffaea0a0c2")
+    @Value("somesecret")
     public String SECRET;
 
     // Period vazenja
@@ -50,7 +50,7 @@ public class TokenUtils {
                 .setAudience(generateAudience())
                 .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
-                .claim("authorities", authoritiesString) //moguce je postavljanje proizvoljnih podataka u telo JWT tokena
+//                .claim("authorities", authoritiesString) //moguce je postavljanje proizvoljnih podataka u telo JWT tokena
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }
 
@@ -89,7 +89,6 @@ public class TokenUtils {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
-
         return (username != null && username.equals(userDetails.getUsername()));
     }
 

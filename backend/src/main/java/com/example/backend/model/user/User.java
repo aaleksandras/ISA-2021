@@ -57,12 +57,12 @@ public abstract class User extends DefaultModel implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.roles;
     }
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.email;
     }
 
     @Override

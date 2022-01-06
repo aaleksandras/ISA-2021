@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,12 +52,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
-            .authorizeRequests().antMatchers("/api/**").permitAll()
+            .authorizeRequests().antMatchers("/api/user").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/user/activateAccount/**").permitAll()
             .anyRequest().authenticated().and()
             .cors().and()
             .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userService), BasicAuthenticationFilter.class);
         http.csrf().disable();
-        http.formLogin().usernameParameter("email").permitAll();
     }
 
     @Override

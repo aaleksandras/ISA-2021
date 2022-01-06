@@ -6,6 +6,7 @@ import com.example.backend.model.user.*;
 import com.example.backend.repository.*;
 import com.example.backend.service.IUserService;
 import com.example.backend.web.dto.CreateUserDto;
+import com.example.backend.web.mapper.place.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,6 +33,8 @@ public class UserServiceImpl implements IUserService {
     private InstructorRepository instructorRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -89,5 +92,17 @@ public class UserServiceImpl implements IUserService {
         user.setIsActive(true);
         return this.userRepository.save(user);
     }
+
+    @Override
+    public User updateUser(UUID id, CreateUserDto dto) {
+        User user = this.userRepository.findUserById(id);
+        user = userMapper.fromDtoToUser(user,dto);
+        if(!dto.getPassword().equals("")){
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+        userRepository.save(user);
+        return user;
+    }
+
 
 }
