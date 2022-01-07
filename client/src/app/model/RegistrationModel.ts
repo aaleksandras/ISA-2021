@@ -10,6 +10,7 @@ export class RegistrationModel extends DefaultModel {
   country: string | undefined;
   phoneNumber: string | undefined;
   typeOfUser: string | undefined;
+  description: string | undefined;
 
   public constructor(init?: Partial<RegistrationModel>) {
     super();

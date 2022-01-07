@@ -35,6 +35,8 @@ public class UserServiceImpl implements IUserService {
     private RoleRepository roleRepository;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private EmailSender emailSender;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -50,14 +52,17 @@ public class UserServiceImpl implements IUserService {
                 return client;
             case "Boat Owner":
                 BoatOwner boatOwner = (BoatOwner) mapDtoToUser(new BoatOwner(), dto, TypeOfUser.BOATOWNER, "ROLE_BOAT_OWNER");
+                boatOwner.setDescription(dto.getDescription());
                 boatOwnerRepository.save(boatOwner);
                 return boatOwner;
             case "House Owner":
                 HouseOwner houseOwner = (HouseOwner) mapDtoToUser(new HouseOwner(), dto, TypeOfUser.HOUSEOWNER, "ROLE_HOUSE_OWNER");
+                houseOwner.setDescription(dto.getDescription());
                 houseOwnerRepository.save(houseOwner);
                 return houseOwner;
             case "Instructor":
                 Instructor instructor = (Instructor) mapDtoToUser(new Instructor(), dto, TypeOfUser.INSTRUCTOR, "ROLE_INSTRUCTOR");
+                instructor.setDescription(dto.getDescription());
                 instructorRepository.save(instructor);
                 return instructor;
         }
@@ -77,6 +82,7 @@ public class UserServiceImpl implements IUserService {
         user.setRoles(getRoleForUser(roleName));
         user.setUsername(dto.getEmail());
         user.setIsActive(false);
+        user.setIsDeclined(false);
         return user;
     }
 
@@ -90,14 +96,21 @@ public class UserServiceImpl implements IUserService {
     public User updateStatus(UUID id) {
         User user = this.userRepository.getById(id);
         user.setIsActive(true);
+        if (user.getTypeOfUser() != TypeOfUser.ADMINISTRATOR && user.getTypeOfUser() != TypeOfUser.CLIENT) {
+            try {
+                emailSender.sendAcceptingEmail(user.getEmail(), user.getId().toString());
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
         return this.userRepository.save(user);
     }
 
     @Override
     public User updateUser(UUID id, CreateUserDto dto) {
         User user = this.userRepository.findUserById(id);
-        user = userMapper.fromDtoToUser(user,dto);
-        if(!dto.getPassword().equals("")){
+        user = userMapper.fromDtoToUser(user, dto);
+        if (!dto.getPassword().equals("")) {
             user.setPassword(passwordEncoder.encode(dto.getPassword()));
         }
         userRepository.save(user);

@@ -17,4 +17,5 @@ public class AuthResponse {
     public String token;
     public String role;
     public int expiresIn;
+    public boolean isActive;
 }

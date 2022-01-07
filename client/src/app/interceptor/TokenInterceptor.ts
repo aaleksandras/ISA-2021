@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
 export class TokenInterceptor implements HttpInterceptor {
   constructor(public auth: AuthService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const authToken = localStorage.getItem('access_token');
+    const authToken = localStorage.getItem('token');
     req = req.clone({
       setHeaders: {
         Authorization: 'Bearer ' + authToken,

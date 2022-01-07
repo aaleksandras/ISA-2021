@@ -39,7 +39,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         String jwt = tokenUtils.generateToken(data.getUsername(), authorities);
         int expiresIn = tokenUtils.getExpiredIn();
 
-        AuthResponse responseDTO = new AuthResponse(data.getId(), data.getUsername(), jwt, data.getRoles().iterator().next().getName(), expiresIn);
+        AuthResponse responseDTO = new AuthResponse(data.getId(), data.getUsername(), jwt, data.getRoles().iterator().next().getName(), expiresIn, data.getIsActive());
         return responseDTO;
     }
 }

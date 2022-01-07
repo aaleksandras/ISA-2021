@@ -7,9 +7,10 @@ import { NavbarModule } from './navbar/navbar.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { HttpClientModule } from '@angular/common/http';
+import { VerificationRequestComponent } from './administrator/verification-request/verification-request.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, VerificationRequestComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

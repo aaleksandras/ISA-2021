@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -15,4 +16,6 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "id")
 @Table(name = "boat_owners")
 public class BoatOwner extends User{
+    @Column(name = "description", nullable = false)
+    private String description;
 }

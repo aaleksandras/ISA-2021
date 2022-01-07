@@ -1,28 +1,28 @@
 <div class="d-flex justify-content-center">
-  <form [formGroup]="registrationForm" class="form-group w-25" (ngSubmit)="onSubmit()">
-    <h3 class="text-dark">Registration:</h3>
+    <form [formGroup]="registrationForm" class="form-group w-25" (ngSubmit)="onSubmit()">
+        <h3 class="text-dark">Registration:</h3>
 
-    <app-input label="First name" [control]="getField('firstName')"></app-input>
-    <app-input label="Last name" [control]="getField('lastName')"></app-input>
-    <app-input label="Email" [control]="getField('email')"></app-input>
-    <app-input label="Password" [control]="getField('password')" type="password"></app-input>
-    <app-input label="Confirm password" [control]="getField('confirmPassword')" type="password"></app-input>
-    <app-input label="Address" [control]="getField('address')"></app-input>
-    <app-input label="City" [control]="getField('city')"></app-input>
-    <app-input label="Country" [control]="getField('country')"></app-input>
-    <app-input label="Phone number" [control]="getField('phoneNumber')"></app-input>
-    <label class="input-group">Choose Type of user</label>
-    <select class="input-group"  [formControl]="getField('typeOfUser')">
+        <app-input label="First name" [control]="getField('firstName')"></app-input>
+        <app-input label="Last name" [control]="getField('lastName')"></app-input>
+        <app-input label="Email" [control]="getField('email')"></app-input>
+        <app-input label="Password" [control]="getField('password')" type="password"></app-input>
+        <app-input label="Confirm password" [control]="getField('confirmPassword')" type="password"></app-input>
+        <app-input label="Address" [control]="getField('address')"></app-input>
+        <app-input label="City" [control]="getField('city')"></app-input>
+        <app-input label="Country" [control]="getField('country')"></app-input>
+        <app-input label="Phone number" [control]="getField('phoneNumber')"></app-input>
+        <label class="input-group">Choose Type of user</label>
+        <select (change)="onChange()" class="input-group" [formControl]="getField('typeOfUser')">
       <option [ngValue]="'Client'">Client</option>
       <option [ngValue]="'Boat Owner'">Boat Owner</option>
       <option [ngValue]="'House Owner'">House Owner</option>
       <option [ngValue]="'Instructor'">Instructor</option>
     </select>
-
-    <button class="btn btn-success w-100" type="submit" [disabled]="registrationForm.invalid">Submit</button>
-    <label class="text-danger" *ngIf="registrationForm.errors && registrationForm.errors.passwordDontMatch">
+        <app-input *ngIf="!this.isClient" label="Description" [control]="getField('description')"></app-input>
+        <button class="btn btn-success w-100" type="submit">Submit</button>
+        <label class="text-danger" *ngIf="registrationForm.errors && registrationForm.errors.passwordDontMatch">
       Password don't match!
     </label>
-  </form>
+    </form>
 
 </div>
