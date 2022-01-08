@@ -21,3 +21,7 @@ values ('623a2230-17fa-4fa6-b96f-291803e84f0b', '380b2cf1-7f15-4694-8fb7-9a3246a
 insert into countries (id, deleted, name)
 values ('5dd5ee5f-15d7-4480-8291-dd5ced667a94', false, 'Serbia'),
        ('a570e1bc-768d-4cfd-889e-8c95527f43f7', false, 'Bosnia and Herzegovina');
+
+
+insert into reservation_entity(id, deleted, title, description, average_mark, address, type)
+values ('43eeb758-2031-41c2-a85b-e3268b47dd9f', false, 'Brod kod Palme', 'Dodji da se provedes!', 10.0, 'Bogu iza nogu!', 0);

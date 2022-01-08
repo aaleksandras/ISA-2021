@@ -1,12 +1,14 @@
-<nav class="navbar navbar-light bg-light" style="padding:10px 20px">
-    <div>
-        <a class="navbar-brand">App</a>
-        <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success" routerLink="/verificationRequests">Verification requests</a>
-    </div>
-    <form class="form-inline">
-        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/registration" routerLinkActive="active">Sing Up</a>
-        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success" routerLink="/login" routerLinkActive="active">Sing In</a>
-        <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success" (click)="onSignOutClick()" routerLink="/login" routerLinkActive="active">Sing Out</a>
-        <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success" [routerLink]="['/profile/', this.authService.getId()]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Profile</a>
-    </form>
+<nav class="navbar navbar-light bg-dark">
+  <div class="ms-3">
+    <a class="navbar-brand text-success fw-bolder">App</a>
+    <a class="btn btn-outline-success mx-2" routerLink="/" routerLinkActive="active">Home</a>
+    <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success" routerLink="/verificationRequests">Verification requests</a>
+
+  </div>
+  <form class="form-inline">
+    <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/registration" routerLinkActive="active">Sing Up</a>
+    <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success" routerLink="/login" routerLinkActive="active">Sing In</a>
+    <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success" (click)="onSignOutClick()" routerLink="/login" routerLinkActive="active">Sing Out</a>
+    <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success" [routerLink]="['/profile/', this.authService.getId()]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Profile</a>
+  </form>
 </nav>
