@@ -8,15 +8,20 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { VerificationRequestComponent } from './administrator/verification-request/verification-request.component';
-
+import { ProfileComponent } from './profile/profile.component';
+import { SharedModule } from './shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [AppComponent, VerificationRequestComponent],
+  declarations: [AppComponent, VerificationRequestComponent, ProfileComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     AuthModule,
     NavbarModule,
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {

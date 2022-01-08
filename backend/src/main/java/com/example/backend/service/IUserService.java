@@ -11,4 +11,5 @@ public interface IUserService extends UserDetailsService {
     User createUser(CreateUserDto dto);
     User updateStatus(UUID id);
     User updateUser(UUID id ,CreateUserDto dto);
+    CreateUserDto getById(UUID id);
 }

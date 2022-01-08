@@ -28,6 +28,14 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
+        CreateUserDto user = userService.getById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+
+    }
+
     @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody CreateUserDto dto) {
         User user = userService.createUser(dto);

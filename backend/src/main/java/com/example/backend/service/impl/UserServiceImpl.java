@@ -117,5 +117,11 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
+    @Override
+    public CreateUserDto getById(UUID id) {
+        CreateUserDto dto = userMapper.fromUserToDto(userRepository.findUserById(id));
+        return dto;
+    }
+
 
 }

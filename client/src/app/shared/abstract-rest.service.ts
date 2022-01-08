@@ -14,11 +14,11 @@ export class AbstractRestService<T extends DefaultModel> {
     return this.http.post<T>(this.baseUrl + this.resourceUrl, t, { observe: 'response' });
   }
 
-  update(id: number, t: T): Observable<HttpResponse<T>> {
+  update(id: any, t: T): Observable<HttpResponse<T>> {
     return this.http.put<T>(`${this.baseUrl}${this.resourceUrl}/${id}`, t, { observe: 'response' });
   }
 
-  find(id: number): Observable<HttpResponse<T>> {
+  find(id:any): Observable<HttpResponse<T>> {
     return this.http.get<T>(`${this.baseUrl}${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
@@ -40,7 +40,7 @@ export class AbstractRestService<T extends DefaultModel> {
       .set('sort', 'id,asc');
   }
 
-  delete(id: number): Observable<HttpResponse<any>> {
+  delete(id: any): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.baseUrl}${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
