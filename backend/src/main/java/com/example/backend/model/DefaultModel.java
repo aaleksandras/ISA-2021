@@ -2,6 +2,7 @@ package com.example.backend.model;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
