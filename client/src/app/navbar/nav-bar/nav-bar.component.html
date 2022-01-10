@@ -1,16 +1,18 @@
 <nav class="navbar navbar-light bg-dark">
-  <div class="ms-3">
-    <a class="navbar-brand text-success fw-bolder">App</a>
-    <a *ngIf="this.authService.getRole() !== 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/home" routerLinkActive="active">Home</a>
-    <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success" routerLink="/verificationRequests" routerLinkActive="active">Verification requests</a>
-    <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/ship" routerLinkActive="active">Ships</a>
-    <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/cottage" routerLinkActive="active">Cottages</a>
-    <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/adventure" routerLinkActive="active">Adventures</a>
-  </div>
-  <form class="form-inline">
-    <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success  my-sm-0" type="submit" routerLink="/registration" routerLinkActive="active">Sing Up</a>
-    <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/login" routerLinkActive="active">Sing In</a>
-    <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" (click)="onSignOutClick()" routerLink="/login" routerLinkActive="active">Sing Out</a>
-    <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" [routerLink]="['/profile/', this.authService.getId()]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Profile</a>
-  </form>
+    <div class="ms-3">
+        <a class="navbar-brand text-success fw-bolder">App</a>
+        <a *ngIf="this.authService.getRole() !== 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/home" routerLinkActive="active">Home</a>
+        <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" class="btn btn-outline-success" routerLink="/verificationRequests">Verification requests</a>
+        <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/addAdmin">Add administrator</a>
+        <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/deleteUsers">Delete users</a>
+        <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/ship" routerLinkActive="active">Ships</a>
+        <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/cottage" routerLinkActive="active">Cottages</a>
+        <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/adventure" routerLinkActive="active">Adventures</a>
+    </div>
+    <form class="form-inline">
+        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/registration" routerLinkActive="active">Sing Up</a>
+        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success" routerLink="/login" routerLinkActive="active">Sing In</a>
+        <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success" (click)="onSignOutClick()" routerLink="/login" routerLinkActive="active">Sing Out</a>
+        <a *ngIf="this.authService.isLoggedIn && this.authService.getIsFirstLogin() == 'false'" class="btn btn-outline-success" [routerLink]="['/profile/', this.authService.getId()]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Profile</a>
+    </form>
 </nav>

@@ -1,8 +1,11 @@
 package com.example.backend.service.impl;
 
+import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.auth.AuthRequest;
 import com.example.backend.model.auth.AuthResponse;
+import com.example.backend.model.user.Administrator;
 import com.example.backend.model.user.User;
+import com.example.backend.repository.AdministratorRepository;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.security.TokenUtils;
 import com.example.backend.service.IAuthenticationService;
@@ -28,6 +31,8 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AdministratorRepository administratorRepository;
 
     @Override
     public AuthResponse login(AuthRequest dto) {
@@ -35,11 +40,18 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User data = (User) authentication.getPrincipal();
+
         Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) authentication.getAuthorities();
         String jwt = tokenUtils.generateToken(data.getUsername(), authorities);
         int expiresIn = tokenUtils.getExpiredIn();
 
-        AuthResponse responseDTO = new AuthResponse(data.getId(), data.getUsername(), jwt, data.getRoles().iterator().next().getName(), expiresIn, data.getIsActive());
+        if(data.getTypeOfUser() == TypeOfUser.ADMINISTRATOR) {
+            Administrator admin = administratorRepository.getById(data.getId());
+            boolean isFirstLogin = admin.isFirstLogin;
+            return new AuthResponse(data.getId(), data.getUsername(), jwt, data.getRoles().iterator().next().getName(), expiresIn, data.getIsActive(), isFirstLogin);
+        }
+
+        AuthResponse responseDTO = new AuthResponse(data.getId(), data.getUsername(), jwt, data.getRoles().iterator().next().getName(), expiresIn, data.getIsActive(), false);
         return responseDTO;
     }
 }

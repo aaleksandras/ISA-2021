@@ -37,6 +37,8 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
     @Autowired
     private EmailSender emailSender;
+    @Autowired
+    private AdministratorRepository administratorRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -65,6 +67,12 @@ public class UserServiceImpl implements IUserService {
                 instructor.setDescription(dto.getDescription());
                 instructorRepository.save(instructor);
                 return instructor;
+            case "Administrator":
+                Administrator admin = (Administrator) mapDtoToUser(new Administrator(), dto, TypeOfUser.ADMINISTRATOR, "ROLE_ADMINISTRATOR");
+                admin.setFirstLogin(true);
+                admin.setIsActive(true);
+                administratorRepository.save(admin);
+                return admin;
         }
         return null;
     }

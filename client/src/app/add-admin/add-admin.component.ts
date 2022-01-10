@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RegistrationModel } from 'src/app/model/RegistrationModel';
-import { MatchPassword } from '../../shared/validators/match-password';
-import { RegistrationService } from '../registration.service';
+import { AdminService } from '../administrator/admin.service';
+import { RegistrationModel } from '../model/RegistrationModel';
+import { MatchPassword } from '../shared/validators/match-password';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css'],
+  selector: 'app-add-admin',
+  templateUrl: './add-admin.component.html',
+  styleUrls: ['./add-admin.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class AddAdminComponent implements OnInit {
+
   registrationForm = new FormGroup(
     {
       firstName: new FormControl('', [Validators.required]),
@@ -28,31 +29,26 @@ export class RegistrationComponent implements OnInit {
       validators: [this.matchPassword.validate],
     }
   );
-  isClient: boolean = true;
   constructor(
     private matchPassword: MatchPassword,
-    private registrationService: RegistrationService
-  ) { }
+    private adminService: AdminService
+  ) {
+
+  }
 
   ngOnInit(): void { }
 
   onSubmit() {
     const model = new RegistrationModel(this.registrationForm.value);
-    this.registrationService.create(model).subscribe((res) => { });
-    if (this.registrationForm.value.typeOfUser === "Client") {
-      alert("Account verification request has been sent, check your email and please confirm account!")
-    }
-    else {
-      alert("Your registration request has been sent to our administrators for a review, you will be notified via email on your account verification!")
-    }
-    window.location.href = '/login';
-  }
-
-  onChange = () => {
-    this.isClient = this.registrationForm.value.typeOfUser === "Client";
+    model.typeOfUser = "Administrator";
+    this.adminService.addAdmin(model).subscribe(res => {
+      alert("New administrator has been created");
+      window.location.href = "";
+    });
   }
 
   getField(field: string): FormControl {
     return this.registrationForm.get(field) as FormControl;
   }
+
 }

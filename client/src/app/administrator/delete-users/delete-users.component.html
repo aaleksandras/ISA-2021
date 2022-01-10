@@ -1,27 +1,24 @@
 <div class="container">
-    <h1>Unverified users</h1>
+    <h1>All users</h1>
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Description</th>
                         <th scope="col">Email</th>
                         <th scope="col">Type Of User</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of unverifiedUsers">
+                    <tr *ngFor="let user of allUsers">
                         <td>{{user.firstName}} {{user.lastName}}</td>
-                        <td>{{user.description}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.typeOfUser}}</td>
                         <td>
-                            <button (click)="onAcceptClick(user.id)" type="button" class="btn btn-success" style="margin-right: 15px;"><i class="fas fa-edit"></i>Accept</button>
-                            <button (click)="onDeclineClick(user.id)" type="button" class="btn btn-danger"><i
-                                    class="far fa-trash-alt"></i>Decline</button>
+                            <button (click)="onDeleteUserClick(user.id)" type="button" class="btn btn-danger"><i
+                                    class="far fa-trash-alt"></i>Delete user</button>
                         </td>
                     </tr>
                 </tbody>

@@ -18,8 +18,8 @@ values ('623a2230-17fa-4fa6-b96f-291803e84f0b', true, 'marko123', false, 'Marko'
         'Srbija'); --instructor password marija123
 
 
-insert into administrators(id)
-values ('623a2230-17fa-4fa6-b96f-291803e84f0b');
+insert into administrators(id, is_first_login)
+values ('623a2230-17fa-4fa6-b96f-291803e84f0b', false);
 
 insert into boat_owners(id, description)
 values ('6607774e-d6fb-4748-b31b-0b5c8ea69210', 'Top sam vam!');

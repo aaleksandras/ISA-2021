@@ -26,6 +26,6 @@ export class VerificationRequestComponent implements OnInit {
     this.adminService.declineAccount(id).subscribe(res => {
       alert("User's verification request is declined!");
       window.location.href = '';
-    })
+    });
   }
 }

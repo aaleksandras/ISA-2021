@@ -3,6 +3,7 @@ package com.example.backend.model.user;
 import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.DefaultModel;
 import lombok.*;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,7 @@ import java.util.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
+@Where(clause = "deleted = 'false'")
 public abstract class User extends DefaultModel implements UserDetails {
 
     @Column(name = "username", nullable = false)

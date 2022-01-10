@@ -29,6 +29,13 @@ export class AuthService {
             alert("Your account is not verified yet!");
             return;
           }
+          if (res.isFirstLogin) {
+            localStorage.setItem('firstLogin', "true");
+            window.location.href = "/changePassword";
+          }
+          else {
+            localStorage.setItem('firstLogin', "false");
+          }
           localStorage.setItem('token', res.token);
           this.currentUser = res;
           localStorage.setItem('role', res.role);
@@ -44,6 +51,10 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  getIsFirstLogin() {
+    return localStorage.getItem('firstLogin');
   }
 
   getRole() {

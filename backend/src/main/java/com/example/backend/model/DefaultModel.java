@@ -22,5 +22,5 @@ public abstract class DefaultModel {
     private UUID id;
 
     @Column(name = "deleted", nullable = false)
-    private final Boolean deleted = false;
+    private Boolean deleted = false;
 }

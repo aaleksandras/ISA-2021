@@ -18,4 +18,5 @@ public class AuthResponse {
     public String role;
     public int expiresIn;
     public boolean isActive;
+    public boolean isFirstLogin;
 }

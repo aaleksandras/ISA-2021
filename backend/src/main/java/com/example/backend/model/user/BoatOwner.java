@@ -3,6 +3,7 @@ package com.example.backend.model.user;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 @Table(name = "boat_owners")
+@Where(clause = "deleted = 'false'")
 public class BoatOwner extends User{
     @Column(name = "description", nullable = false)
     private String description;
