@@ -36,9 +36,24 @@ export class AdminService {
       );
   };
 
+  getAllEntities = () => {
+    return this.http
+      .get('http://localhost:8080/api/reservation-entity')
+      .pipe(
+        map((responseData: any) => {
+          return responseData;
+        })
+      );
+  };
+
   deleteUser = (id: string) => {
     return this.http
       .get('http://localhost:8080/api/user/deleteUser/' + id);
+  };
+
+  deleteEntity = (id: string) => {
+    return this.http
+      .get('http://localhost:8080/api/reservation-entity/deleteEntity/' + id);
   };
 
   verifyAccount = (id: string) => {
