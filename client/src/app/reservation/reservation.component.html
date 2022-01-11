@@ -1,0 +1,36 @@
+<div class="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h1>Reservation</h1>
+
+    <div style="display: flex; flex-direction: row;  ">
+        <div style="margin-right: 10px;">
+            <button (click)="startAdventureReservation()" class="btn btn-primary" style="width: 150px;">Adventure/Fishing</button>
+        </div>
+        <div style="margin-right: 10px;">
+            <button (click)="startBoatReservation()"  class="btn btn-primary" style="width: 150px;">Boat</button>
+        </div>
+        <div style="margin-right: 10px;">
+            <button (click)="startCotaggeReservation()"  class="btn btn-primary" style="width: 150px;">Cotagge</button>
+        </div>
+    </div>
+
+    <div *ngIf="adventrueFlag" class="reservation-wrapper">
+        <div class="form-group">
+            Select date:
+            <input type="date" (change)="changeDateAdventure($event)" [(ngModel)]="dateStartAdventure" class="form-control" >
+        </div>
+        <div class="form-group">
+            Select time:
+            <input type="time" (change)="changeTimeAdventure($event)" [(ngModel)]="timeStrAdventure" class="form-control" >
+        </div>
+    </div>
+
+    <div  *ngIf="boatFlag">
+        Boat
+    </div>
+
+    <div  *ngIf="cottageFlag">
+        Cotagge
+
+    </div>
+
+</div>

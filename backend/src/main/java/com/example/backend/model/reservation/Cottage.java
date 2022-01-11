@@ -13,6 +13,6 @@ import javax.persistence.Table;
 public class Cottage extends ReservationEntity {
 
     private int numberOfRooms;
-    private int numberOfBads;
+    private int numberOfBeds;
     
 }

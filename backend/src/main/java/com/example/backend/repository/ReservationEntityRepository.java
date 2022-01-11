@@ -16,4 +16,6 @@ public interface ReservationEntityRepository extends JpaRepository<ReservationEn
 
     @Query("select re from ReservationEntity re where re.type = :type")
     List<ReservationEntity> search(@Param("type") TypeOfEntity type);
+
+    ReservationEntity findReservationEntitiesById(UUID id);
 }

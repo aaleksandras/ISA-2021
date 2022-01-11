@@ -9,6 +9,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { DeleteUsersComponent } from './administrator/delete-users/delete-users.component';
 import { DeleteEntitiesComponent } from './administrator/delete-entities/delete-entities.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'deleteEntities',
     component: DeleteEntitiesComponent,
+  },
+  {
+    path: 'reservation',
+    component: ReservationComponent,
   },
 ];
 

@@ -18,7 +18,7 @@
       <option [ngValue]="'House Owner'">House Owner</option>
       <option [ngValue]="'Instructor'">Instructor</option>
     </select>
-        <app-input *ngIf="!this.isClient" label="Description" [control]="getField('description')"></app-input>
+        <app-input *="!this.isClient" label="Description" [control]="getField('description')"></app-input>
         <button class="btn btn-success w-100" type="submit">Submit</button>
         <label class="text-danger" *ngIf="registrationForm.errors && registrationForm.errors.passwordDontMatch">
       Password don't match!

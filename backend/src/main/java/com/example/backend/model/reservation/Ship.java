@@ -3,9 +3,10 @@ package com.example.backend.model.reservation;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -15,8 +16,21 @@ public class Ship extends ReservationEntity{
 
     private int capacity;
 
+    private String typeOfBoat;
+
+    private Double length;
+
+    private String engineNumber;
+
+    private Double enginePower;
+
+    private Double maxSpeed;
+
     private Double percentageForCanceled;
 
+    @ElementCollection
+    private List<String> additionalService = new ArrayList<String>();
 
+    private String cancellationCondition;
 
 }
