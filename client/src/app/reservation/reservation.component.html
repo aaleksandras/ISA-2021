@@ -9,7 +9,7 @@
             <button (click)="startBoatReservation()"  class="btn btn-primary" style="width: 150px;">Boat</button>
         </div>
         <div style="margin-right: 10px;">
-            <button (click)="startCotaggeReservation()"  class="btn btn-primary" style="width: 150px;">Cotagge</button>
+            <button (click)="startCotaggeReservation()"  class="btn btn-primary" style="width: 150px;">Cottage</button>
         </div>
     </div>
 
@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
             Number of day:
-            <input type="number" [(ngModel)]="reservationAdventure.numberOfDay" class="form-control" >
+            <input type="number" [(ngModel)]="this.reservationSearch.numberOfDay" class="form-control" >
         </div>
     </div>
 
@@ -36,5 +36,50 @@
         Cotagge
 
     </div>
+    <div style="margin-right: 10px; margin-top: 10px; margin-bottom: 20px; justify-self: end; align-self: flex-end;">
+        <button (click)="searachEntity()"  class="btn btn-primary" style="width: 150px;">search</button>
+    </div>
+
+    <div *ngIf="adventrueFlag">
+        <div *ngFor="let item of listOfEntity">
+            <p> {{item.id}}</p>
+            <p> {{item.name}}</p>
+            <p> {{item.description}}</p>
+            <p> {{item.maxPersons}}</p>
+            <p> {{item.address}}</p>
+            <p> {{item.price}}</p>
+       
+        <div style="margin-right: 10px; margin-top: 10px; margin-bottom: 20px; justify-self: end; align-self: flex-end;">
+            <button (click)="reservEtity(item.id)"  class="btn btn-primary" style="width: 150px;">reserv</button>
+        </div>
+    </div>
+    </div>
+        
+    <div *ngIf="cottageFlag">
+        <div *ngFor="let item of listOfEntity">
+            <p> {{item.id}}</p>
+            <p> {{item.name}}</p>
+            <p> {{item.description}}</p>
+            <p> {{item.numberOfBeds}}</p>
+            <p> {{item.numberOfRooms}}</p>
+            <p> {{item.address}}</p>
+            <p> {{item.price}} </p>
+        </div>
+    </div>
+
+    <div  *ngIf="boatFlag">
+        <div *ngFor="let item of listOfEntity">
+            <p> {{item.id}}</p>
+            <p> {{item.name}}</p>
+            <p> {{item.description}}</p>
+            <p> {{item.length}}</p>
+            <p> {{item.engineNumber}}</p>
+            <p> {{item.enginePower}}</p>
+            <p> {{item.address}}</p>
+            <p> {{item.price}}</p>
+        </div>
+    </div>
+
+
 
 </div>
