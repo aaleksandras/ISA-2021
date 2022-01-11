@@ -56,7 +56,7 @@ public class ReservationServiceImpl implements IReservationService {
             }
             if (startDate.isBefore(endDate) || startDate.equals(endDate)) {
                 Date start = Date.from(startDate.atStartOfDay(defaultZoneId).toInstant());
-                AvailableDay availableDay = availableDayRepository.findAvailableDayByDay(start);
+                AvailableDay availableDay = availableDayRepository.findAvailableDayByDayAndReservationId(start, reservation.getId());
                 if(availableDay != null && !availableDay.getIs_free()){
                     return null;
                 }

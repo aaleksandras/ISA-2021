@@ -18,6 +18,13 @@ export class ReservationComponent implements OnInit {
     type:1
   }
 
+  reservationSearch = {
+    startDate: new Date,
+    startTime: '',
+    numberOfDay: 0,
+    type: 0
+  }
+
   dateStartAdventure:any;
   timeStrAdventure:any;
   constructor() { }
@@ -28,12 +35,14 @@ export class ReservationComponent implements OnInit {
 
   startAdventureReservation = () => {
     this.adventrueFlag = true;
+    this.reservationSearch.type = 2;
     this.boatFlag = false;
     this.cottageFlag = false;
   }
 
   startBoatReservation = () => {
     this.boatFlag = true;
+    this.reservationSearch.type = 0;
     this.adventrueFlag = false;
     this.cottageFlag = false;
     
@@ -41,6 +50,7 @@ export class ReservationComponent implements OnInit {
 
   startCotaggeReservation = () => {
     this.cottageFlag = true;
+    this.reservationSearch.type = 1;
     this.boatFlag = false;
     this.adventrueFlag = false;
   }

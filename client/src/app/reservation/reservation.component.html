@@ -22,6 +22,10 @@
             Select time:
             <input type="time" (change)="changeTimeAdventure($event)" [(ngModel)]="timeStrAdventure" class="form-control" >
         </div>
+        <div class="form-group">
+            Number of day:
+            <input type="number" [(ngModel)]="reservationAdventure.numberOfDay" class="form-control" >
+        </div>
     </div>
 
     <div  *ngIf="boatFlag">

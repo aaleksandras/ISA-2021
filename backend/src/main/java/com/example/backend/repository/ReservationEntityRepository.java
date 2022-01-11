@@ -18,4 +18,5 @@ public interface ReservationEntityRepository extends JpaRepository<ReservationEn
     List<ReservationEntity> search(@Param("type") TypeOfEntity type);
 
     ReservationEntity findReservationEntitiesById(UUID id);
+
 }

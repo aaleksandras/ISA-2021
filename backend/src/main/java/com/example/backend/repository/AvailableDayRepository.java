@@ -7,6 +7,5 @@ import java.util.UUID;
 
 public interface AvailableDayRepository extends JpaRepository<AvailableDay, UUID> {
 
-    AvailableDay findAvailableDayByDay(Date day);
-
+    AvailableDay findAvailableDayByDayAndReservationId(Date day, UUID id);
 }
