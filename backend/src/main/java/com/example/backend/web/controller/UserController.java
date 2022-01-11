@@ -3,11 +3,14 @@ package com.example.backend.web.controller;
 import com.example.backend.email.EmailSender;
 import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.user.Administrator;
+import com.example.backend.model.user.DeleteAccountRequest;
 import com.example.backend.model.user.User;
 import com.example.backend.repository.AdministratorRepository;
+import com.example.backend.repository.DeleteAccountRequestRepository;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.service.IUserService;
 import com.example.backend.web.dto.CreateUserDto;
+import com.example.backend.web.dto.DeleteAccountDto;
 import com.example.backend.web.dto.ResetPasswordDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +39,8 @@ public class UserController {
     PasswordEncoder passwordEncoder;
     @Autowired
     AdministratorRepository administratorRepository;
+    @Autowired
+    DeleteAccountRequestRepository deleteAccountRequestRepository;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @GetMapping("/{id}")
@@ -51,6 +56,50 @@ public class UserController {
         user.setDeleted(true);
         userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/requestDelete/{id}")
+    public ResponseEntity<?> requestDelete(@PathVariable String id) {
+        User user = userRepository.findUserById(UUID.fromString(id));
+        DeleteAccountRequest deleteAccountRequest = new DeleteAccountRequest();
+        deleteAccountRequest.setEmail(user.getEmail());
+        deleteAccountRequest.setFullName(user.getFirstName() + " " + user.getLastName());
+        deleteAccountRequest.setUserId(user.getId());
+        deleteAccountRequest.setTypeOfUser(user.getTypeOfUser().toString());
+        deleteAccountRequest.setAnswered(false);
+        deleteAccountRequestRepository.save(deleteAccountRequest);
+        return new ResponseEntity<>(deleteAccountRequest, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @PostMapping("/acceptDeleteRequest")
+    public ResponseEntity<?> acceptRequest(@RequestBody DeleteAccountDto dto) {
+        DeleteAccountRequest deleteAccountRequest = deleteAccountRequestRepository.findById(UUID.fromString(dto.getDeleteRequestId())).get();
+        User user = userRepository.findUserById(deleteAccountRequest.getUserId());
+        user.setDeleted(true);
+        userRepository.save(user);
+        deleteAccountRequest.setAnswered(true);
+        deleteAccountRequestRepository.save(deleteAccountRequest);
+        sender.sendAcceptingAccountDeletionMail(user.getEmail(), dto.getMessage());
+        return new ResponseEntity<>(deleteAccountRequest, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @PostMapping("/declineDeleteRequest")
+    public ResponseEntity<?> declineRequest(@RequestBody DeleteAccountDto dto) {
+        DeleteAccountRequest deleteAccountRequest = deleteAccountRequestRepository.findById(UUID.fromString(dto.getDeleteRequestId())).get();
+        User user = userRepository.findUserById(deleteAccountRequest.getUserId());
+        deleteAccountRequest.setAnswered(true);
+        deleteAccountRequestRepository.save(deleteAccountRequest);
+        sender.sendDecliningAccountDeletionMail(user.getEmail(), dto.getMessage());
+        return new ResponseEntity<>(deleteAccountRequest, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/deleteRequests")
+    public ResponseEntity<?> getDeleteRequests() {
+        return new ResponseEntity<>(deleteAccountRequestRepository.findAll().stream()
+                .filter(req -> req.isAnswered() == false), HttpStatus.OK);
     }
 
     @PostMapping

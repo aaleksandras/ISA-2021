@@ -10,6 +10,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { DeleteUsersComponent } from './administrator/delete-users/delete-users.component';
 import { DeleteEntitiesComponent } from './administrator/delete-entities/delete-entities.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { DeleteAccountRequestsComponent } from './administrator/delete-account-requests/delete-account-requests.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'reservation',
     component: ReservationComponent,
+  },
+  {
+    path: 'deleteAccReq',
+    component: DeleteAccountRequestsComponent,
   },
 ];
 

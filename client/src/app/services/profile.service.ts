@@ -10,4 +10,10 @@ export class ProfileService  extends AbstractRestService<RegistrationModel>{
   constructor(public http: HttpClient) {
     super(http, '/api/user');
   }
+
+  requestDeleteAccount = (id: string) => {
+    return this.http
+      .get('http://localhost:8080/api/user/requestDelete/' + id);
+  };
+
 }

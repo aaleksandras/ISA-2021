@@ -40,4 +40,22 @@ public class EmailSender {
         message.setText(body);
         emailSender.send(message);
     }
+
+    public void sendAcceptingAccountDeletionMail(String email, String response) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        String body = "Your request for deleting account is accepted. \n" + response;
+        message.setTo(email);
+        message.setSubject("Your request for deleting account is accepted!");
+        message.setText(body);
+        emailSender.send(message);
+    }
+
+    public void sendDecliningAccountDeletionMail(String email, String response) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        String body = "Your request for deleting account is declined. \n" + response;
+        message.setTo(email);
+        message.setSubject("Your request for deleting account is declined!");
+        message.setText(body);
+        emailSender.send(message);
+    }
 }
