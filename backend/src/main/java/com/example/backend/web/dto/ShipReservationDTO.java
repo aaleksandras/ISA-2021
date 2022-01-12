@@ -18,5 +18,6 @@ public class ShipReservationDTO {
     private String engineNumber;
     private Double enginePower;
     private Double maxSpeed;
+    public String img;
 
 }

@@ -2,6 +2,7 @@ package com.example.backend.model.reservation;
 
 import com.example.backend.enums.TypeOfEntity;
 import com.example.backend.model.DefaultModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
@@ -28,9 +29,11 @@ public class ReservationEntity extends DefaultModel {
 
     private TypeOfEntity type;
 
+    @JsonIgnore
     @OneToMany(mappedBy="reservation")
     private Set<Reservation> reservations;
 
+    @JsonIgnore
     @OneToMany(mappedBy="reservation")
     private Set<AvailableDay> availableDays;
 

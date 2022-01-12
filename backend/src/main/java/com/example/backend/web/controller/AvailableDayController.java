@@ -1,9 +1,6 @@
 package com.example.backend.web.controller;
 
-import com.example.backend.model.reservation.Adventure;
-import com.example.backend.model.reservation.Cottage;
-import com.example.backend.model.reservation.ReservationEntity;
-import com.example.backend.model.reservation.Ship;
+import com.example.backend.model.reservation.*;
 import com.example.backend.repository.AdventureRepository;
 import com.example.backend.repository.CottageRepository;
 import com.example.backend.repository.ShipRepository;
@@ -44,6 +41,10 @@ public class AvailableDayController {
         List<ShipReservationDTO> dtos = new ArrayList<>();
         for(ReservationEntity r: list){
             Ship s = shipRepository.findShipById(r.getId());
+            String name = "";
+            if(s.getPictures().size()>0){
+                name = s.getPictures().iterator().next().getName();
+            }
             ShipReservationDTO sd = new ShipReservationDTO(s.getId(),
                     s.getName(),
                     s.getDescription(),
@@ -52,7 +53,8 @@ public class AvailableDayController {
                     s.getLength(),
                     s.getEngineNumber(),
                     s.getEnginePower(),
-                    s.getMaxSpeed());
+                    s.getMaxSpeed(),
+                    name);
             dtos.add(sd);
         }
         return new ResponseEntity<>(dtos, HttpStatus.OK);
@@ -70,6 +72,10 @@ public class AvailableDayController {
             advedto.setId(a.getId());
             advedto.setMaxPersons(a.getMaxPersons());
             advedto.setName(a.getName());
+            if(a.getPictures().size() > 0){
+                Picture p = a.getPictures().iterator().next();
+                advedto.setImg(p.getName());
+            }
             dtos.add(advedto);
         }
         return new ResponseEntity<>(dtos, HttpStatus.OK);
@@ -81,6 +87,10 @@ public class AvailableDayController {
         List<CottageReservationDTO> dtos = new ArrayList<>();
         for(ReservationEntity r: list){
             Cottage c = cottageRepository.findCottageById(r.getId());
+            String name = "";
+            if(c.getPictures().size()>0){
+                name = c.getPictures().iterator().next().getName();
+            }
             CottageReservationDTO cd = new CottageReservationDTO(
                     c.getId(),
                     c.getName(),
@@ -88,7 +98,8 @@ public class AvailableDayController {
                     c.getNumberOfBeds(),
                     c.getNumberOfRooms(),
                     c.getAddress(),
-                    c.getPrice()
+                    c.getPrice(),
+                    name
             );
             dtos.add(cd);
         }

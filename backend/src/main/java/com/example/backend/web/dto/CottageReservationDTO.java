@@ -15,4 +15,6 @@ public class CottageReservationDTO {
     public int numberOfRooms;
     public String address;
     public Double price;
+    public String img;
+
 }

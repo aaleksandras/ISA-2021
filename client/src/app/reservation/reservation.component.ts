@@ -42,6 +42,7 @@ export class ReservationComponent implements OnInit {
     this.reservationSearch.type = 2;
     this.boatFlag = false;
     this.cottageFlag = false;
+    this.listOfEntity = [];
   }
 
   startBoatReservation = () => {
@@ -49,6 +50,7 @@ export class ReservationComponent implements OnInit {
     this.reservationSearch.type = 0;
     this.adventrueFlag = false;
     this.cottageFlag = false;
+    this.listOfEntity = [];
     
   }
 
@@ -57,6 +59,7 @@ export class ReservationComponent implements OnInit {
     this.reservationSearch.type = 1;
     this.boatFlag = false;
     this.adventrueFlag = false;
+    this.listOfEntity = [];
   }
 
   changeDateAdventure(event:any){
@@ -100,18 +103,17 @@ export class ReservationComponent implements OnInit {
 
   }
 
-
   reservEtity = (id:any) =>{
     const a:any = this.authServie.getId();
     this.reservationAdventure.userId = a.toString() ;
     this.reservationAdventure.reservationEntityId = id;
+    this.reservationAdventure.numberOfDay = this.reservationSearch.numberOfDay;
     this.reservatioService.create(this.reservationAdventure).subscribe(
       (res:any) => {
-        console.log(res);
-        this.listOfEntity = res;
+        alert("Successfuly")
+      }, error =>{
+        alert("Error");
       }
     )
   }
-
-
 }

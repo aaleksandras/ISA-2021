@@ -74,11 +74,17 @@ public class ReservationServiceImpl implements IReservationService {
         r.setTerm(term);
         r.setStatusOfReservation(StatusOfReservation.scheduled);
         r.setReservation(reservation);
-        r.setPrice(100.00);
+        double p = reservation.getPrice() * dto.getNumberOfDay();
+        r.setPrice(p);
         r.setUser(user);
+        r.setNumberOfPersons(4);
         r = reservationRepository.save(r);
         if(r.getId() != null){
-            availableDayRepository.saveAll(availableDayList);
+            for(AvailableDay a: availableDayList){
+                a.setIs_free(false);
+                System.out.println(a.getId());
+                availableDayRepository.save(a);
+            }
         }
         return r.getId();
     }
