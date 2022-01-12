@@ -19,8 +19,9 @@ import { DeleteEntitiesComponent } from './administrator/delete-entities/delete-
 import { ReservationComponent } from './reservation/reservation.component';
 import { DeleteAccountRequestsComponent } from './administrator/delete-account-requests/delete-account-requests.component';
 import { IncomeComponent } from './administrator/income/income.component';
+import { ReservationPageComponent } from './reservation-page/reservation-page.component';
 @NgModule({
-  declarations: [AppComponent, VerificationRequestComponent, ProfileComponent, AddAdminComponent, ChangePasswordComponent, DeleteUsersComponent, DeleteEntitiesComponent, ReservationComponent, DeleteAccountRequestsComponent, IncomeComponent],
+  declarations: [AppComponent, VerificationRequestComponent, ProfileComponent, AddAdminComponent, ChangePasswordComponent, DeleteUsersComponent, DeleteEntitiesComponent, ReservationComponent, DeleteAccountRequestsComponent, IncomeComponent, ReservationPageComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

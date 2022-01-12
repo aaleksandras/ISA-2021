@@ -58,4 +58,13 @@ public class EmailSender {
         message.setText(body);
         emailSender.send(message);
     }
+
+    public void sendBookNotify(String email, String id) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        String body = "Successfully booked entity, reservation id " + id;
+        message.setTo(email);
+        message.setSubject("Reservation");
+        message.setText(body);
+        emailSender.send(message);
+    }
 }

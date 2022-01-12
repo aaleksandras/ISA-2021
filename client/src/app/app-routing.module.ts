@@ -12,6 +12,7 @@ import { DeleteEntitiesComponent } from './administrator/delete-entities/delete-
 import { ReservationComponent } from './reservation/reservation.component';
 import { DeleteAccountRequestsComponent } from './administrator/delete-account-requests/delete-account-requests.component';
 import { IncomeComponent } from './administrator/income/income.component';
+import {ReservationPageComponent} from './reservation-page/reservation-page.component'
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'income',
     component: IncomeComponent,
+  },
+  {
+    path: 'action/:id',
+    component: ReservationPageComponent,
   },
 ];
 

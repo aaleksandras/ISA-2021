@@ -29,7 +29,7 @@ public class Reservation extends DefaultModel {
     private StatusOfReservation statusOfReservation;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
     private User user;
 
     @ManyToOne
@@ -37,6 +37,8 @@ public class Reservation extends DefaultModel {
     private ReservationEntity reservation;
 
     private Integer numberOfPersons;
+
+    private Integer discount;
 
     @ElementCollection
     private List<String> additionalService = new ArrayList<String>();

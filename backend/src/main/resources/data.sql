@@ -103,6 +103,13 @@ values('f176ff01-f0a6-4cd1-827f-3dc598b1ee4f', false , '2022-01-15 00:00:00.0000
       ('3fa92d6a-9421-4a62-ab9f-f44feed2823b', false , '2022-02-11 00:00:00.000000', true, '12:58:06','8f5eb499-3759-42ca-b354-5b02ecad333d' ),
       ('b77d6018-9193-4c6a-a5b4-49b77718ba16', false , '2022-02-12 00:00:00.000000', true, '12:58:06','8f5eb499-3759-42ca-b354-5b02ecad333d' );
 
+insert into terms(id, deleted, end_date, end_time, start_date, start_time)
+values('24492db3-5931-4a3a-bd5b-36ba3cd753c9', false , '2022-02-12 00:00:00.000000', '12:58:06', '2022-02-10 00:00:00.000000', '12:50:00');
+
+insert into reservations (id, deleted, discount, number_of_persons, price, status_of_reservation, reservation_entyty_id, term_id, user_id )
+values('f45e93b1-e64c-4f32-bd88-216bc2898a74', false , 200, 4, 400, 2, '8f5eb499-3759-42ca-b354-5b02ecad333d', '24492db3-5931-4a3a-bd5b-36ba3cd753c9', null);
+
+
 
 
 insert into pictures (id, deleted, name, reservation_entity_id)

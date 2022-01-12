@@ -1,4 +1,5 @@
 package com.example.backend.service.impl;
+import com.example.backend.email.EmailSender;
 import com.example.backend.enums.StatusOfReservation;
 import com.example.backend.model.reservation.AvailableDay;
 import com.example.backend.model.reservation.Reservation;
@@ -35,6 +36,9 @@ public class ReservationServiceImpl implements IReservationService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailSender sender;
 
     @Override
     public UUID create(ReservationDTO dto) {
@@ -86,6 +90,12 @@ public class ReservationServiceImpl implements IReservationService {
                 availableDayRepository.save(a);
             }
         }
+
+        try {
+            sender.sendBookNotify(user.getEmail(), r.getId().toString());
+        }catch (Exception e){
+        }
+
         return r.getId();
     }
 }
