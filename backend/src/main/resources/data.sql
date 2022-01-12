@@ -136,3 +136,4 @@ values ('43eeb758-2031-41c2-a85b-e3268b47dd9f', 'wifi'),
        ('af93ba3b-b01a-47e5-8deb-494a533b58df', 'air-conditional'),
        ('e754d1ce-050f-4fab-b690-f12a0559786b', 'TV');
 
+insert into percentages_from_reservations (id, percentage) values ('24eeb758-2031-41c2-a85b-e3268b47dd9f', 10);

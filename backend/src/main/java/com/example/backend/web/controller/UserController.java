@@ -1,17 +1,16 @@
 package com.example.backend.web.controller;
 
 import com.example.backend.email.EmailSender;
+import com.example.backend.enums.StatusOfReservation;
 import com.example.backend.enums.TypeOfUser;
+import com.example.backend.model.reservation.PercentageFromReservations;
+import com.example.backend.model.reservation.Reservation;
 import com.example.backend.model.user.Administrator;
 import com.example.backend.model.user.DeleteAccountRequest;
 import com.example.backend.model.user.User;
-import com.example.backend.repository.AdministratorRepository;
-import com.example.backend.repository.DeleteAccountRequestRepository;
-import com.example.backend.repository.UserRepository;
+import com.example.backend.repository.*;
 import com.example.backend.service.IUserService;
-import com.example.backend.web.dto.CreateUserDto;
-import com.example.backend.web.dto.DeleteAccountDto;
-import com.example.backend.web.dto.ResetPasswordDto;
+import com.example.backend.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,6 +41,10 @@ public class UserController {
     AdministratorRepository administratorRepository;
     @Autowired
     DeleteAccountRequestRepository deleteAccountRequestRepository;
+    @Autowired
+    PercentageFromReservationsRepository percentageFromReservationsRepository;
+    @Autowired
+    ReservationRepository reservationRepository;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @GetMapping("/{id}")
@@ -57,6 +61,23 @@ public class UserController {
         userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @GetMapping("/getPercentageForReservations")
+    public ResponseEntity<?> getPercentageForReservations() {
+        PercentageFromReservations percentage = percentageFromReservationsRepository.findAll().get(0);
+        return new ResponseEntity<>(percentage, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @GetMapping("/changePercentage/{newPercentage}")
+    public ResponseEntity<?> changePercentage(@PathVariable String newPercentage) {
+        PercentageFromReservations percentage = percentageFromReservationsRepository.findAll().get(0);
+        percentage.setPercentage(Double.parseDouble(newPercentage));
+        percentageFromReservationsRepository.save(percentage);
+        return new ResponseEntity<>(percentage, HttpStatus.OK);
+    }
+
 
     @GetMapping("/requestDelete/{id}")
     public ResponseEntity<?> requestDelete(@PathVariable String id) {
@@ -95,12 +116,34 @@ public class UserController {
         return new ResponseEntity<>(deleteAccountRequest, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @PostMapping("/getReport")
+    public ResponseEntity<?> declineRequest(@RequestBody GenerateReportDto dto) {
+        var reservations = reservationRepository.findAll();
+        PercentageFromReservations percentage = percentageFromReservationsRepository.findAll().get(0);
+        double income = 0;
+        for (Reservation res : reservations) {
+            if (res.getStatusOfReservation() == StatusOfReservation.scheduled &&
+                    res.getTerm().getStartDate().after(dto.getStartDate()) &&
+                    res.getTerm().getEndDate().before(dto.getEndDate())) {
+
+                income += percentage.getPercentage() / 100 * res.getPrice();
+            }
+        }
+        ReportResponse response = new ReportResponse();
+        response.setPercentage(percentage.getPercentage());
+        response.setIncome(income);
+        response.setEndDate(dto.getEndDate());
+        response.setStartDate(dto.getStartDate());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @GetMapping("/deleteRequests")
     public ResponseEntity<?> getDeleteRequests() {
         return new ResponseEntity<>(deleteAccountRequestRepository.findAll().stream()
                 .filter(req -> req.isAnswered() == false), HttpStatus.OK);
     }
+
 
     @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody CreateUserDto dto) {

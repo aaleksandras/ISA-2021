@@ -7,6 +7,7 @@
         <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/deleteUsers">Delete users</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/deleteEntities">Delete entities</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/deleteAccReq">Delete account requests</a>
+        <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/income">Manage income from reservations</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/ship" routerLinkActive="active">Ships</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/cottage" routerLinkActive="active">Cottages</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/adventure" routerLinkActive="active">Adventures</a>

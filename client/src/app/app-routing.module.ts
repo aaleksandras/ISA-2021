@@ -11,6 +11,7 @@ import { DeleteUsersComponent } from './administrator/delete-users/delete-users.
 import { DeleteEntitiesComponent } from './administrator/delete-entities/delete-entities.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { DeleteAccountRequestsComponent } from './administrator/delete-account-requests/delete-account-requests.component';
+import { IncomeComponent } from './administrator/income/income.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'deleteAccReq',
     component: DeleteAccountRequestsComponent,
+  },
+  {
+    path: 'income',
+    component: IncomeComponent,
   },
 ];
 

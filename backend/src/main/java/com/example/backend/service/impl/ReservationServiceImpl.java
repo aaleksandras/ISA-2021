@@ -72,7 +72,7 @@ public class ReservationServiceImpl implements IReservationService {
         term.setEndTime(LocalTime.now());
         term = termRepository.save(term);
         r.setTerm(term);
-        r.setStatusOfReservation(StatusOfReservation.padding);
+        r.setStatusOfReservation(StatusOfReservation.scheduled);
         r.setReservation(reservation);
         r.setPrice(100.00);
         r.setUser(user);

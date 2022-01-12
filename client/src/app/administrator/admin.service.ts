@@ -3,12 +3,16 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { DeleteRequestModel } from '../model/DeleteRequestModel';
 import { RegistrationModel } from '../model/RegistrationModel';
+import { ReportModel } from '../model/ReportModel';
 import { ResetPasswordModel } from '../model/ResetPasswordModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
+  generateReport(model: ReportModel) {
+    return this.http.post('http://localhost:8080/api/user/getReport', model);
+  }
   resetPassword(model: ResetPasswordModel) {
     return this.http.post(
       'http://localhost:8080/api/user/resetPassword',
@@ -23,6 +27,22 @@ export class AdminService {
       map((responseData: any) => {
         return responseData;
       })
+    );
+  };
+
+  getReservationPercentage = () => {
+    return this.http
+      .get('http://localhost:8080/api/user/getPercentageForReservations')
+      .pipe(
+        map((responseData: any) => {
+          return responseData;
+        })
+      );
+  };
+
+  changeReservationPercentage = (newPercentage: string) => {
+    return this.http.get(
+      'http://localhost:8080/api/user/changePercentage/' + newPercentage
     );
   };
 
