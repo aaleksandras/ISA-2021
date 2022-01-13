@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ReservationEntity} from "./model/reservation-entity";
 import {ReservationEntityService} from "./service/reservation-entity.service";
 import {ActivatedRoute} from "@angular/router";
 import {HttpParams} from "@angular/common/http";
@@ -11,7 +10,7 @@ import {HttpParams} from "@angular/common/http";
 })
 export class HomeComponent implements OnInit {
 
-  entities: ReservationEntity[] = [];
+  entities: any;
 
   entityType: null;
 

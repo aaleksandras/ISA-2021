@@ -1,10 +1,12 @@
 package com.example.backend.web.controller;
 
+import com.example.backend.model.reservation.AvailableDay;
 import com.example.backend.model.reservation.ReservationEntity;
 import com.example.backend.model.user.User;
 import com.example.backend.repository.ReservationEntityRepository;
 import com.example.backend.security.reservation.ReservationEntityService;
 import com.example.backend.web.dto.ReservationEntityParamsDTO;
+import com.example.backend.web.dto.ReservationEntityResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,8 +31,16 @@ public class ReservationEntityController {
     ReservationEntityRepository reservationEntityRepository;
 
     @GetMapping
-    public ResponseEntity<List<ReservationEntity>> findAll() {
-        return ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<?> findAll() {
+        var response = new ArrayList<ReservationEntityResponse>();
+        var reservationEntities = service.findAll();
+        for (ReservationEntity res : reservationEntities) {
+            var temp = new ReservationEntityResponse();
+            temp.setReservationEntity(res);
+            temp.setAvailableDays(new ArrayList<>(res.getAvailableDays()));
+            response.add(temp);
+        }
+        return ResponseEntity.ok().body(response);
     }
 
 

@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ReservationEntity} from "../model/reservation-entity";
 
 @Component({
   selector: 'app-reservation-entity-list',
@@ -8,7 +7,7 @@ import {ReservationEntity} from "../model/reservation-entity";
 })
 export class ReservationEntityListComponent implements OnInit {
 
-  @Input() items: ReservationEntity[] = [];
+  @Input() items: any;
 
   constructor() { }
 

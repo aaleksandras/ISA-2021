@@ -3,8 +3,8 @@
     <div class="col-md-4">
 <!--      <img src="..." class="img-fluid rounded-start" alt="...">-->
       <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner" *ngIf="entity.pictures.length > 0">
-          <div class="carousel-item active" *ngFor="let picture of entity.pictures" style="max-width: 300px; max-height: 250px;">
+        <div class="carousel-inner" *ngIf="entity.reservationEntity.pictures.length > 0">
+          <div class="carousel-item active" *ngFor="let picture of entity.reservationEntity.pictures" style="max-width: 300px; max-height: 250px;">
             <img [src]="'http://localhost:8080/api/file/' + picture.name" class="d-block w-100" style="width: 300px; height: 250px;" alt="...">
           </div>
         </div>
@@ -14,12 +14,12 @@
       <div class="card-body">
         <div class="row">
           <div class="col-10">
-            <h5 class="card-title">{{entity.title}}</h5>
-            <p class="card-text">{{entity.description}}</p>
-            <p class="card-text"><small class="text-muted">{{entity.address}}</small></p>
+            <h5 class="card-title">{{entity.reservationEntity.name}}</h5>
+            <p class="card-text">{{entity.reservationEntity.description}}</p>
+            <p class="card-text"><small class="text-muted">{{entity.reservationEntity.address}}</small></p>
           </div>
           <div class="col-2">
-            <h5 class="text-success">{{entity.averageMark}}</h5>
+            <h5 class="text-success">{{entity.reservationEntity.averageMark}}</h5>
           </div>
 
         </div>
