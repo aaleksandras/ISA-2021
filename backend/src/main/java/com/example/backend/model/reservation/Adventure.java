@@ -1,6 +1,7 @@
 package com.example.backend.model.reservation;
 
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;

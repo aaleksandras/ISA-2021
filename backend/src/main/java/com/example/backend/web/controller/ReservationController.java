@@ -1,5 +1,4 @@
 package com.example.backend.web.controller;
-
 import com.example.backend.email.EmailSender;
 import com.example.backend.enums.StatusOfReservation;
 import com.example.backend.model.reservation.Reservation;
@@ -10,6 +9,7 @@ import com.example.backend.service.IReservationService;
 import com.example.backend.web.dto.ActionDTO;
 import com.example.backend.web.dto.ReservationActionDTO;
 import com.example.backend.web.dto.ReservationDTO;
+import com.example.backend.web.dto.ReservationDTO2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +32,7 @@ public class ReservationController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private EmailSender sender;
 
@@ -80,6 +81,26 @@ public class ReservationController {
 
 
         return ResponseEntity.ok().body(dto);
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> getAllReservationByUserId(@PathVariable UUID id) {
+        List<ReservationDTO2> dtos = reservationService.getAllReservationByUser(id);
+
+        if(id == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+        Reservation r = reservationRepository.getById(id);
+        r.setDeleted(true);
+        reservationRepository.save(r);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 }

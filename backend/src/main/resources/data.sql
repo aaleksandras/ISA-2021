@@ -1,7 +1,7 @@
 insert into users (id, is_active, username, deleted, first_name, last_name, email, password, type_of_user, phone_number,
                    address,
                    city, country)
-values ('623a2230-17fa-4fa6-b96f-291803e84f0b', true, 'marko123', false, 'Marko', 'Markovic', 'marko@gmail.com',
+values ('623a2230-17fa-4fa6-b96f-291803e84f0b', true, 'marko123', false, 'Marko', 'Markovic', 'fekiti1116@liepaia.com',
         '$2a$12$fB5RqVpYN/WUl3saxHn49Ouckh20MVcdy5Br50OchE6yr0ijgGWse', 0, '+381-64-123-11-11', 'Bulevar 3', 'Novi Sad',
         'Srbija'), -- Administrator password marko123
        ('6607774e-d6fb-4748-b31b-0b5c8ea69210', true, 'janko', false, 'Janko', 'Jankovic', 'janko@gmail.com',

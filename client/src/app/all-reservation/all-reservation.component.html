@@ -1,0 +1,17 @@
+<div>
+    <h1>All Reservation</h1>
+
+    <div class="row">
+        <div *ngFor="let item of list" class="col-sm-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text">{{item.startDate}} - {{item.endDate}}</p>
+                <p class="card-text">{{item.startTime}} - {{item.endTime}}</p>
+                <p class="card-text">Price with discount: {{item.price}}</p>
+                <button (click)="decline(item.id)" class="btn btn-primary">delete</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

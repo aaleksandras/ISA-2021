@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
+@Where(clause = "deleted = 'false'")
 @Table(name = "reservations")
 public class Reservation extends DefaultModel {
 

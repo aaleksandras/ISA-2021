@@ -9,6 +9,7 @@ import com.example.backend.model.user.User;
 import com.example.backend.repository.*;
 import com.example.backend.service.IReservationService;
 import com.example.backend.web.dto.ReservationDTO;
+import com.example.backend.web.dto.ReservationDTO2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +73,7 @@ public class ReservationServiceImpl implements IReservationService {
         Term term = new Term();
         term.setStartDate(dto.getStartDate());
         term.setEndDate(Date.from(endDate.atStartOfDay(defaultZoneId).toInstant()));
-        term.setEndTime(dto.getStartTime());
+        term.setStartTime(dto.getStartTime());
         term.setEndTime(LocalTime.now());
         term = termRepository.save(term);
         r.setTerm(term);
@@ -86,16 +87,42 @@ public class ReservationServiceImpl implements IReservationService {
         if(r.getId() != null){
             for(AvailableDay a: availableDayList){
                 a.setIs_free(false);
-                System.out.println(a.getId());
                 availableDayRepository.save(a);
             }
         }
 
         try {
+
             sender.sendBookNotify(user.getEmail(), r.getId().toString());
         }catch (Exception e){
         }
-
         return r.getId();
     }
+
+
+    @Override
+    public List<ReservationDTO2> getAllReservationByUser(UUID id) {
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        LocalDate startDate = LocalDate.now();
+        startDate = startDate.plusDays(3);
+        Date start = Date.from(startDate.atStartOfDay(defaultZoneId).toInstant());
+        List<Reservation> reservations = reservationRepository.getAllUserByReservation(start, id);
+        List<ReservationDTO2> dtos = new ArrayList<>();
+        for(Reservation r: reservations){
+            ReservationDTO2 rdt = new ReservationDTO2();
+            rdt.setId(r.getId());
+            rdt.setStartDate(r.getTerm().getStartDate());
+            rdt.setEndDate(r.getTerm().getEndDate());
+            rdt.setPrice(r.getPrice());
+            rdt.setNumberOfPersons(r.getNumberOfPersons());
+            rdt.setStartTime(r.getTerm().getStartTime());
+            rdt.setEndTime(r.getTerm().getEndTime());
+            rdt.setName(r.getReservation().getName());
+            dtos.add(rdt);
+        }
+
+        return dtos;
+    }
+
+
 }

@@ -19,7 +19,16 @@ export class ReservationPageComponent implements OnInit {
   ngOnInit(): void {
     this.reservationEntity = this.route.snapshot.params[`id`];
     this.reservationService.getAllAction(this.reservationEntity).subscribe((res:any) =>{
-      this.list = res;
+      for(let action of res){
+        let startTime = action.startTime[0] + ":" + action.startTime[1];
+        let endtime = action.endTime[0] + ":" + action.endTime[1];
+        action.startTime = startTime;
+        action.endTime = endtime;
+        action.startDate = new Date(action.startDate).toLocaleDateString();
+        action.endDate = new Date(action.endDate).toLocaleDateString();
+        this.list.push(action);
+      }
+      
     })
   }
 

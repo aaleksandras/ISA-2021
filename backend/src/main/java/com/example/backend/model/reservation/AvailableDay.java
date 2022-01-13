@@ -2,6 +2,7 @@ package com.example.backend.model.reservation;
 
 import com.example.backend.model.DefaultModel;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Data
 @Entity
+@Where(clause = "deleted = 'false'")
 @Table(name = "available_days")
 public class AvailableDay extends DefaultModel {
 
