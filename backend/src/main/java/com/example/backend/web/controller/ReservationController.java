@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class ReservationController {
     @Autowired
     private EmailSender sender;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @PostMapping
     public ResponseEntity<?> createTerm(@RequestBody ReservationDTO dto) {
         UUID id = reservationService.create(dto);
@@ -45,6 +47,7 @@ public class ReservationController {
         return ResponseEntity.ok().body(id);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @PostMapping("/action")
     public ResponseEntity<?> action(@RequestBody ActionDTO dto) {
         Reservation r = reservationRepository.getById(dto.reservationId);
@@ -61,6 +64,7 @@ public class ReservationController {
     }
 
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @GetMapping("/action/{id}")
     public ResponseEntity<?> getAllAction(@PathVariable UUID id) {
         List<Reservation> list = reservationRepository.getReservationByReservationIdAndStatusOfReservationAndUserIsNull(id, StatusOfReservation.action);
@@ -83,6 +87,7 @@ public class ReservationController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @GetMapping("/users/{id}")
     public ResponseEntity<?> getAllReservationByUserId(@PathVariable UUID id) {
         List<ReservationDTO2> dtos = reservationService.getAllReservationByUser(id);
@@ -95,6 +100,7 @@ public class ReservationController {
     }
 
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         Reservation r = reservationRepository.getById(id);

@@ -49,7 +49,7 @@ public class ReservationServiceImpl implements IReservationService {
         List<AvailableDay> availableDayList = new ArrayList<>();
         ReservationEntity reservation = reservationEntityRepository.findReservationEntitiesById(dto.getReservationEntityId());
         if(reservation == null) return null;
-        List<Reservation> reservationList = reservationRepository.timeOverlapping(dto.getStartDate());
+        List<Reservation> reservationList = reservationRepository.timeOverlapping(dto.getStartDate(), dto.getUserId());
         if(!reservationList.isEmpty()){
             return null;
         }

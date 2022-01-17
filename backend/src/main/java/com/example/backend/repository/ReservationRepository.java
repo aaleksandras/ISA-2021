@@ -11,8 +11,8 @@ import java.util.UUID;
 
 public interface ReservationRepository extends JpaRepository<Reservation, UUID> {
 
-    @Query("select r from Reservation r where r.term.startDate >= ?1 and r.term.endDate <= ?1")
-    List<Reservation> timeOverlapping(Date startDate);
+    @Query("select r from Reservation r where r.term.startDate <= ?1 and r.term.endDate >= ?1 and r.user.id = ?2")
+    List<Reservation> timeOverlapping(Date startDate, UUID userId);
 
 
     List<Reservation> getReservationByReservationIdAndStatusOfReservationAndUserIsNull(UUID id, StatusOfReservation a);

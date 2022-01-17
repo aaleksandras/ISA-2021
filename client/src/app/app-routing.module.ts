@@ -17,6 +17,10 @@ import {AllReservationComponent} from './all-reservation/all-reservation.compone
 
 const routes: Routes = [
   {
+    path: '',
+    component: HomeComponent,
+  },
+  {
     path: 'home',
     component: HomeComponent,
   },

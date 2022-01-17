@@ -30,6 +30,7 @@ public class ReservationEntityController {
     @Autowired
     ReservationEntityRepository reservationEntityRepository;
 
+
     @GetMapping
     public ResponseEntity<?> findAll() {
         var response = new ArrayList<ReservationEntityResponse>();
