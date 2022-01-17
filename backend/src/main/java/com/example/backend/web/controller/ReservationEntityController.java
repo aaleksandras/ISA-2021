@@ -45,8 +45,16 @@ public class ReservationEntityController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<ReservationEntity>> findAll(ReservationEntityParamsDTO params) {
-        return ResponseEntity.ok().body(service.search(params));
+    public ResponseEntity<?> findAll(ReservationEntityParamsDTO params) {
+        var response = new ArrayList<ReservationEntityResponse>();
+        var reservationEntities = service.search(params);
+        for (ReservationEntity res : reservationEntities) {
+            var temp = new ReservationEntityResponse();
+            temp.setReservationEntity(res);
+            temp.setAvailableDays(new ArrayList<>(res.getAvailableDays()));
+            response.add(temp);
+        }
+        return ResponseEntity.ok().body(response);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")

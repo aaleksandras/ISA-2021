@@ -1,13 +1,13 @@
 <nav class="navbar navbar-light bg-dark">
     <div class="ms-3">
-        <a class="navbar-brand text-success fw-bolder">App</a>
+        <a class="navbar-brand text-success fw-bolder" href="/home" style="cursor: pointer;">App</a>
         <a *ngIf="this.authService.getRole() !== 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/home" routerLinkActive="active">Home</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" class="btn btn-outline-success" routerLink="/verificationRequests">Verification requests</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/addAdmin">Add administrator</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/deleteUsers">Delete users</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/deleteEntities">Delete entities</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/deleteAccReq">Delete account requests</a>
-        <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/income">Manage income from reservations</a>
+        <a *ngIf="this.authService.getRole() === 'ROLE_ADMINISTRATOR' && this.authService.getIsFirstLogin() == 'false'" style="margin-left: 7px" class="btn btn-outline-success" routerLink="/income">Manage income</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/ship" routerLinkActive="active">Ships</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/cottage" routerLinkActive="active">Cottages</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/adventure" routerLinkActive="active">Adventures</a>
