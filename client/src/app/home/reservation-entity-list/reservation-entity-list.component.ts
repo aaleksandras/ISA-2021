@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import * as moment from 'moment'; //in your component
 
 @Component({
   selector: 'app-reservation-entity-list',

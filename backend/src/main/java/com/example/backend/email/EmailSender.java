@@ -67,4 +67,13 @@ public class EmailSender {
         message.setText(body);
         emailSender.send(message);
     }
+
+    public void sendComplaint(String email, String text) {
+        SimpleMailMessage smm = new SimpleMailMessage();
+        smm.setSubject("Complaint");
+        smm.setText(text);
+        smm.setTo(email);
+        emailSender.send(smm);
+
+    }
 }

@@ -12,7 +12,8 @@
         <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/cottage" routerLinkActive="active">Cottages</a>
         <a *ngIf="this.authService.getRole() === 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/client/adventure" routerLinkActive="active">Adventures</a>
         <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/reservation" routerLinkActive="active">Reservations </a>
-        <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/all-reservation" routerLinkActive="active">All Reservation </a>
+        <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/all-reservation" routerLinkActive="active">My Reservation </a>
+        <a *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success mx-2" routerLink="/admin-reservation" routerLinkActive="active">All Reservation </a>
     </div>
     <form class="form-inline">
         <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/registration" routerLinkActive="active">Sing Up</a>

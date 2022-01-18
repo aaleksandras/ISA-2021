@@ -1,6 +1,8 @@
 package com.example.backend.model.reservation;
 
+import com.example.backend.enums.StatusOfComplaint;
 import com.example.backend.enums.StatusOfReservation;
+import com.example.backend.enums.StatusOfRevision;
 import com.example.backend.model.DefaultModel;
 import com.example.backend.model.user.User;
 import lombok.Data;
@@ -11,7 +13,9 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -44,4 +48,20 @@ public class Reservation extends DefaultModel {
 
     @ElementCollection
     private List<String> additionalService = new ArrayList<String>();
+
+    @Column(length = 4096)
+    private String complaint;
+
+    @Column(length = 4096)
+    private String answer;
+
+    private StatusOfComplaint statusOfComplaint;
+
+    @Column(length = 4096)
+    private String revision;
+
+    Integer mark;
+
+    StatusOfRevision status;
+
 }

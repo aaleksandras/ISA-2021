@@ -1,5 +1,7 @@
 package com.example.backend.web.dto;
 
+import com.example.backend.enums.StatusOfComplaint;
+import com.example.backend.enums.StatusOfRevision;
 import lombok.Data;
 
 import java.time.LocalTime;
@@ -16,4 +18,10 @@ public class ReservationDTO2 {
     private Integer numberOfPersons;
     private String name;
     private Double price;
+    private String complaint;
+    private String answer;
+    private String revision;
+    private StatusOfComplaint statusOfComplaint;
+    Integer mark;
+    StatusOfRevision status;
 }

@@ -1,17 +1,41 @@
-<div>
-    <h1>All Reservation</h1>
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <h1 class="my-5">All Reservation</h1>
+  </div>
 
-    <div class="row">
-        <div *ngFor="let item of list" class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{item.name}}</h5>
-                <p class="card-text">{{item.startDate}} - {{item.endDate}}</p>
-                <p class="card-text">{{item.startTime}} - {{item.endTime}}</p>
-                <p class="card-text">Price with discount: {{item.price}}</p>
-                <button (click)="decline(item.id)" class="btn btn-primary">delete</button>
-            </div>
-            </div>
+  <div class="row" *ngFor="let item of list">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text">{{item.startDate}} - {{item.endDate}}</p>
+          <p class="card-text">{{item.startTime}} - {{item.endTime}}</p>
+          <p class="card-text">Price with discount: {{item.price}}</p>
+          <button (click)="decline(item.id)" class="btn btn-primary">delete</button>
         </div>
+      </div>
     </div>
+
+    <div class="col-sm-6">
+
+      <div class="row">
+        <div class="col-6">
+          <form  (ngSubmit)="onSubmitComplaint(item)">
+            <label>Zalba:</label>
+            <textarea [(ngModel)]="item.complaint" [ngModelOptions]="{standalone: true}" [readonly]="item.statusOfComplaint"></textarea>
+            <button *ngIf="!item.statusOfComplaint" class="btn btn-outline-success" type="submit">Posalji zalbu</button>
+          </form>
+
+        </div>
+        <div class="col-6">
+          <form (ngSubmit)="onSubmitRevision(item)">
+            <label>Revizija:</label>
+            <textarea [(ngModel)]="item.revision" [ngModelOptions]="{standalone: true}" [readonly]="item.status"></textarea>
+            <input class="my-1" type="number" [(ngModel)]="item.mark" [ngModelOptions]="{standalone: true}" [readonly]="item.status"/>
+            <button class="btn btn-outline-success" type="submit" *ngIf="!item.status" >Posalji reviziju</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

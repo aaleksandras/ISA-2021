@@ -51,7 +51,7 @@ export class ReservationComponent implements OnInit {
     this.adventrueFlag = false;
     this.cottageFlag = false;
     this.listOfEntity = [];
-    
+
   }
 
   startCotaggeReservation = () => {
@@ -108,7 +108,7 @@ export class ReservationComponent implements OnInit {
     this.reservationAdventure.userId = a.toString() ;
     this.reservationAdventure.reservationEntityId = id;
     this.reservationAdventure.numberOfDay = this.reservationSearch.numberOfDay;
-    this.reservatioService.create(this.reservationAdventure).subscribe(
+    this.reservatioService.createR(this.reservationAdventure).subscribe(
       (res:any) => {
         alert("Successfuly")
       }, error =>{

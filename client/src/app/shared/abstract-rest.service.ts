@@ -40,8 +40,5 @@ export class AbstractRestService<T extends DefaultModel> {
       .set('sort', 'id,asc');
   }
 
-  delete(id: any): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`${this.baseUrl}${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
 
 }
