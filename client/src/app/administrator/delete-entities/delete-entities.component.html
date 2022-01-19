@@ -13,11 +13,12 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let entity of allEntities">
-                        <td>{{entity.title}}</td>
-                        <td>{{entity.description}}</td>
-                        <td>{{entity.type}}</td>
+                      
+                        <td>{{entity.reservationEntity.name}}</td>
+                        <td>{{entity.reservationEntity.description}}</td>
+                        <td>{{entity.reservationEntity.type}}</td>
                         <td>
-                            <button (click)="onDeleteEntityClick(entity.id)" type="button" class="btn btn-danger"><i
+                            <button (click)="onDeleteEntityClick(entity.reservationEntity.id)" type="button" class="btn btn-danger"><i
                                     class="far fa-trash-alt"></i>Delete entity</button>
                         </td>
                     </tr>

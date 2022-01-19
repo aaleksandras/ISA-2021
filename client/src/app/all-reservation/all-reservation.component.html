@@ -31,6 +31,7 @@
           <form (ngSubmit)="onSubmitRevision(item)">
             <label>Revizija:</label>
             <textarea [(ngModel)]="item.revision" [ngModelOptions]="{standalone: true}" [readonly]="item.status"></textarea>
+            <label>Mark:</label>
             <input class="my-1" type="number" [(ngModel)]="item.mark" [ngModelOptions]="{standalone: true}" [readonly]="item.status"/>
             <button class="btn btn-outline-success" type="submit" *ngIf="!item.status" >Posalji reviziju</button>
           </form>
