@@ -138,6 +138,37 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     @Override
+    public List<ReservationDTO2> getEndedReservationByUser(UUID id) {
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        LocalDate endDate = LocalDate.now();
+        Date end = Date.from(endDate.atStartOfDay(defaultZoneId).toInstant());
+        List<Reservation> reservations = reservationRepository.getEndedUserByReservation(end, id);
+        List<ReservationDTO2> dtos = new ArrayList<>();
+        System.out.println(reservations.size() + "AAA");
+        for (Reservation r : reservations) {
+            ReservationDTO2 rdt = new ReservationDTO2();
+            rdt.setId(r.getId());
+            rdt.setStartDate(r.getTerm().getStartDate());
+            rdt.setEndDate(r.getTerm().getEndDate());
+            rdt.setPrice(r.getPrice());
+            rdt.setNumberOfPersons(r.getNumberOfPersons());
+            rdt.setStartTime(r.getTerm().getStartTime());
+            rdt.setEndTime(r.getTerm().getEndTime());
+            rdt.setName(r.getReservation().getName());
+            rdt.setMark(r.getMark());
+            rdt.setRevision(r.getRevision());
+            rdt.setAnswer(r.getAnswer());
+            rdt.setComplaint(r.getComplaint());
+            rdt.setStatus(r.getStatus());
+            rdt.setStatusOfComplaint(r.getStatusOfComplaint());
+
+            dtos.add(rdt);
+        }
+
+        return dtos;
+    }
+
+    @Override
     public Reservation createRevision(RevisionDTO dto) {
         Reservation r = reservationRepository.getById(dto.getId());
         r.setRevision(dto.getRevision());

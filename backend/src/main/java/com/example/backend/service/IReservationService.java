@@ -17,4 +17,6 @@ public interface IReservationService {
     Reservation createRevision(RevisionDTO dto);
 
     Reservation createComplaint(ComplaintDTO dto);
+
+    List<ReservationDTO2> getEndedReservationByUser(UUID id);
 }

@@ -20,4 +20,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, UUID> 
 
     @Query("select r from Reservation r where r.term.startDate >= ?1 and r.user.id= ?2")
     List<Reservation> getAllUserByReservation(Date startDate, UUID id);
+
+    @Query("select r from Reservation r where r.term.endDate <= ?1 and r.user.id= ?2")
+    List<Reservation> getEndedUserByReservation(Date endDate, UUID id);
 }

@@ -121,6 +121,17 @@ public class ReservationController {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
+    @GetMapping("/ended/users/{id}")
+    public ResponseEntity<?> getEndedReservationByUserId(@PathVariable UUID id) {
+        List<ReservationDTO2> dtos = reservationService.getEndedReservationByUser(id);
+
+        if (id == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @DeleteMapping("/{id}")

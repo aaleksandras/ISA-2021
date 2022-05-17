@@ -76,6 +76,13 @@ export class ReservationService extends AbstractRestService<any> {
       }));
   }
 
+  getEndedReservationByUser(id: any) {
+    return this.http.get("http://localhost:8080/api/reservations/ended/users/" + id)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
 
   delete(id: any) {
     return this.http.delete("http://localhost:8080/api/reservations/" + id)

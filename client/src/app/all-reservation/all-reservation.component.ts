@@ -51,52 +51,55 @@ export class AllReservationComponent implements OnInit {
 
 
   onSubmitComplaint(item: any) {
-    if(item.complaint != null && item.complaint.length > 0) {
-      this.reservationService.createComplaint({id: item.id, complaint: item.complaint, status: 0}).subscribe(response => {
-        alert("Zalba poslata!");
-        this.list = [];
-        this.reservationService.getAllReservationByUser(this.authService.getId()).subscribe((res:any)=>{
-          for(let action of res){
-            let startTime = action.startTime[0] + ":" + action.startTime[1];
-            let endtime = action.endTime[0] + ":" + action.endTime[1];
-            action.startTime = startTime;
-            action.endTime = endtime;
-            action.startDate = new Date(action.startDate).toISOString();
-            action.endDate = new Date(action.endDate).toISOString();
-            this.list.push(action);
-          }
-        })
-      })
-    } else {
-      alert("Morate uneti zalbu!")
-    }
+    // if(item.complaint != null && item.complaint.length > 0) {
+    //   this.reservationService.createComplaint({id: item.id, complaint: item.complaint, status: 0}).subscribe(response => {
+    //     alert("Zalba poslata!");
+    //     this.list = [];
+    //     this.reservationService.getAllReservationByUser(this.authService.getId()).subscribe((res:any)=>{
+    //       for(let action of res){
+    //         let startTime = action.startTime[0] + ":" + action.startTime[1];
+    //         let endtime = action.endTime[0] + ":" + action.endTime[1];
+    //         action.startTime = startTime;
+    //         action.endTime = endtime;
+    //         action.startDate = new Date(action.startDate).toISOString();
+    //         action.endDate = new Date(action.endDate).toISOString();
+    //         this.list.push(action);
+    //       }
+    //     })
+    //   })
+    // } else {
+    //   alert("Morate uneti zalbu!")
+    // }
+
+    alert("Jos uvek ne mozete da se zalite. Mora proci termin.")
 
   }
 
 
   onSubmitRevision(item: any) {
-    console.log(item);
-    if (item.revision != null && item.mark != null && item.revision.length > 0 && parseInt(item.mark) > 0 && parseInt(item.mark) < 6 ) {
-      this.reservationService.createRevision({id: item.id, revision: item.revision, mark: item.mark}).subscribe(response => {
-        console.log(response);
-        alert('Revizija sacuvana!');
-        this.list = [];
-        this.reservationService.getAllReservationByUser(this.authService.getId()).subscribe((res:any)=>{
-          for(let action of res){
-            let startTime = action.startTime[0] + ":" + action.startTime[1];
-            let endtime = action.endTime[0] + ":" + action.endTime[1];
-            action.startTime = startTime;
-            action.endTime = endtime;
-            action.startDate = new Date(action.startDate).toISOString();
-            action.endDate = new Date(action.endDate).toISOString();
-            this.list.push(action);
-          }
-        })
-      })
-    } else {
-      alert("Morate uneti reviziju i ocenu od 1 do 5!");
-    }
+  //   console.log(item);
+  //   if (item.revision != null && item.mark != null && item.revision.length > 0 && parseInt(item.mark) > 0 && parseInt(item.mark) < 6 ) {
+  //     this.reservationService.createRevision({id: item.id, revision: item.revision, mark: item.mark}).subscribe(response => {
+  //       console.log(response);
+  //       alert('Revizija sacuvana!');
+  //       this.list = [];
+  //       this.reservationService.getAllReservationByUser(this.authService.getId()).subscribe((res:any)=>{
+  //         for(let action of res){
+  //           let startTime = action.startTime[0] + ":" + action.startTime[1];
+  //           let endtime = action.endTime[0] + ":" + action.endTime[1];
+  //           action.startTime = startTime;
+  //           action.endTime = endtime;
+  //           action.startDate = new Date(action.startDate).toISOString();
+  //           action.endDate = new Date(action.endDate).toISOString();
+  //           this.list.push(action);
+  //         }
+  //       })
+  //     })
+  //   } else {
+  //     alert("Morate uneti reviziju i ocenu od 1 do 5!");
+  //   }
 
+    alert("Jos uvek ne mozete uneti reviziju. Mora proci termin.")
   }
 
 }

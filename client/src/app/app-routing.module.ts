@@ -14,6 +14,7 @@ import { DeleteAccountRequestsComponent } from './administrator/delete-account-r
 import { IncomeComponent } from './administrator/income/income.component';
 import {ReservationPageComponent} from './reservation-page/reservation-page.component'
 import {AllReservationComponent} from './all-reservation/all-reservation.component'
+import {EndedReservationsComponent} from './ended-reservations/ended-reservations.component'
 import {AdminReservationComponent} from "./admin-reservation/admin-reservation.component";
 
 const routes: Routes = [
@@ -76,7 +77,12 @@ const routes: Routes = [
   {
     path: 'all-reservation',
     component: AllReservationComponent,
-  }, {
+  }, 
+  {
+    path: 'ended-reservation',
+    component: EndedReservationsComponent,
+  },
+  {
     path: 'admin-reservation',
     component: AdminReservationComponent
   }
