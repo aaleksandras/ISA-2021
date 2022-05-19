@@ -1,11 +1,14 @@
 package com.example.backend.service.impl;
 
 import com.example.backend.email.EmailSender;
+import com.example.backend.enums.StatusOfPenalty;
 import com.example.backend.enums.TypeOfUser;
+import com.example.backend.model.penalty.Penalty;
 import com.example.backend.model.user.*;
 import com.example.backend.repository.*;
 import com.example.backend.service.IUserService;
 import com.example.backend.web.dto.CreateUserDto;
+import com.example.backend.web.dto.NewPenaltyDTO;
 import com.example.backend.web.mapper.place.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -39,6 +43,9 @@ public class UserServiceImpl implements IUserService {
     private EmailSender emailSender;
     @Autowired
     private AdministratorRepository administratorRepository;
+
+    @Autowired
+    private PenaltyRepository penaltyRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -129,6 +136,29 @@ public class UserServiceImpl implements IUserService {
     public CreateUserDto getById(UUID id) {
         CreateUserDto dto = userMapper.fromUserToDto(userRepository.findUserById(id));
         return dto;
+    }
+
+    @Override
+    public void addPenaltyToUser(NewPenaltyDTO dto) {
+        Date today = new Date();
+        Date nextMonth = today;
+        nextMonth.setMonth(today.getMonth() + 1);
+        nextMonth.setDate(1);
+        Penalty penalty = new Penalty(dto, nextMonth);
+        Client client = clientRepository.getById(dto.getId());
+        client.getListOfPenalties().add(penalty);
+        clientRepository.save(client);
+
+    }
+
+    @Override
+    public void changePenaltyStatus(String status, UUID id) {
+        Penalty penalty = penaltyRepository.getById(id);
+        if (status.equals("ACCEPTED")) {
+            penalty.setStatusOfPenalty(StatusOfPenalty.ACCEPTED);
+        } else {
+            penalty.setStatusOfPenalty(StatusOfPenalty.REJECTED);
+        }
     }
 
 

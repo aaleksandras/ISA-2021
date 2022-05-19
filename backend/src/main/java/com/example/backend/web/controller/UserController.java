@@ -123,7 +123,7 @@ public class UserController {
         PercentageFromReservations percentage = percentageFromReservationsRepository.findAll().get(0);
         double income = 0;
         for (Reservation res : reservations) {
-            if (res.getStatusOfReservation() == StatusOfReservation.scheduled &&
+            if (res.getStatusOfReservation() == StatusOfReservation.SCHEDULED &&
                     res.getTerm().getStartDate().after(dto.getStartDate()) &&
                     res.getTerm().getEndDate().before(dto.getEndDate())) {
 
@@ -218,5 +218,19 @@ public class UserController {
                         .stream()
                         .filter(u -> u.getTypeOfUser() != TypeOfUser.ADMINISTRATOR && u.getIsActive() == true),
                 HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_BOAT_OWNER', 'ROLE_HOUSE_OWNER', 'ROLE_INSTRUCTOR')")
+    @PostMapping("/addPenalty")
+    public ResponseEntity<?> addPenaltyToUser(@RequestBody NewPenaltyDTO dto) {
+        userService.addPenaltyToUser(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @PostMapping("/changePenaltyStatus/{status}/{id}")
+    public ResponseEntity<?> changePenaltyStatus(@PathVariable String status, UUID id) {
+        userService.changePenaltyStatus(status, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

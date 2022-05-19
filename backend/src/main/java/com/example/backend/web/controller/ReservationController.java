@@ -65,7 +65,7 @@ public class ReservationController {
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @GetMapping("/action/{id}")
     public ResponseEntity<?> getAllAction(@PathVariable UUID id) {
-        List<Reservation> list = reservationRepository.getReservationByReservationIdAndStatusOfReservationAndUserIsNull(id, StatusOfReservation.action);
+        List<Reservation> list = reservationRepository.getReservationByReservationIdAndStatusOfReservationAndUserIsNull(id, StatusOfReservation.ACTION);
         List<ReservationActionDTO> dto = new ArrayList<>();
         for (Reservation r : list) {
             dto.add(new ReservationActionDTO(
