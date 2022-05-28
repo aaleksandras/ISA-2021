@@ -21,7 +21,4 @@ import java.util.List;
 @Table(name = "clients")
 @Where(clause = "deleted = 'false'")
 public class Client extends User implements Serializable {
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Penalty> listOfPenalties;
 }

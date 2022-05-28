@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="d-flex justify-content-center">
+      <h1 class="my-5">New penalties</h1>
+    </div>
+  
+    <div class="row" *ngFor="let item of list">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title" id ="item.id">{{item.username}}</h5>
+            <p class="card-text">Content: {{item.content}}</p>
+            <p class="card-text">Reason for penalty: {{item.reason}}</p>
+            <button class="btn btn-outline-success" type="submit" (click)="approve(item)">Approve penalty</button>
+            <button class="btn btn-outline-success" type="submit" (click)="delete(item)">Delete penalty</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

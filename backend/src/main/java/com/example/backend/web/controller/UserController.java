@@ -227,10 +227,32 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
-    @PostMapping("/changePenaltyStatus/{status}/{id}")
-    public ResponseEntity<?> changePenaltyStatus(@PathVariable String status, UUID id) {
-        userService.changePenaltyStatus(status, id);
+    //@PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @GetMapping("/del/{id}")
+    public ResponseEntity<?> changePenaltyStatus(@PathVariable UUID id) {
+        userService.changePenaltyStatus("a", id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/acc/{id}")
+    public ResponseEntity<?> changePenaltyStatusA(@PathVariable  UUID id) {
+        userService.changePenaltyStatus("ACCEPTED", id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('ROLE_BOAT_OWNER', 'ROLE_HOUSE_OWNER', 'ROLE_INSTRUCTOR')")
+    @GetMapping("/getComments/{id}")
+    public List<CommentsDTO> getComments(@PathVariable UUID id) {
+
+        return userService.getComments(id);
+    }
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @GetMapping("/getPenalties/{id}")
+    public List<NewPenaltyDTO> getPenalties(@PathVariable UUID id) {
+
+        return userService.getPenalties();
+    }
+    @GetMapping("/getMyPenalties/{id}")
+    public List<NewPenaltyDTO> getMyPenalties(@PathVariable UUID id) {
+
+        return userService.getMyPenalties(id);
     }
 }

@@ -17,9 +17,16 @@ public class Penalty extends DefaultModel {
     private Date endDate;
     private StatusOfPenalty statusOfPenalty;
 
+    private String userComment;
+
+    private String username;
+
     public Penalty(NewPenaltyDTO dto, Date nextMonth) {
         this.reason = dto.getReason();
         this.endDate = nextMonth;
         this.statusOfPenalty = StatusOfPenalty.NEW;
+    }
+
+    public Penalty() {
     }
 }

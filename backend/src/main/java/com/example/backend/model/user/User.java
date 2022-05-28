@@ -2,6 +2,7 @@ package com.example.backend.model.user;
 
 import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.DefaultModel;
+import com.example.backend.model.penalty.Penalty;
 import lombok.*;
 import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
@@ -55,6 +56,9 @@ public abstract class User extends DefaultModel implements UserDetails {
 
     @Column(name = "is_declined")
     private Boolean isDeclined;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Penalty> listOfPenalties;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

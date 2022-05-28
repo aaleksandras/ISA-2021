@@ -16,6 +16,8 @@ import {ReservationPageComponent} from './reservation-page/reservation-page.comp
 import {AllReservationComponent} from './all-reservation/all-reservation.component'
 import {EndedReservationsComponent} from './ended-reservations/ended-reservations.component'
 import {AdminReservationComponent} from "./admin-reservation/admin-reservation.component";
+import { ViewComentsComponent } from './view-coments/view-coments.component';
+import { ViewPenaltiesComponent } from './view-penalties/view-penalties.component';
 
 const routes: Routes = [
   {
@@ -85,6 +87,14 @@ const routes: Routes = [
   {
     path: 'admin-reservation',
     component: AdminReservationComponent
+  },
+  {
+    path: 'view-comments',
+    component: ViewComentsComponent
+  },
+  {
+    path: 'view-penalties',
+    component: ViewPenaltiesComponent
   }
 ];
 

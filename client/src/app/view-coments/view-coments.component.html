@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="d-flex justify-content-center">
+      <h1 class="my-5">All Revisions</h1>
+    </div>
+  
+    <div class="row" *ngFor="let item of list">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title" id ="item.id">{{item.username}} {{item.reservationName}}</h5>
+            <p class="card-text">{{item.content}}</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-6">
+            <form  (ngSubmit)="onSubmitComplaint(item)">
+              <label>Reason for penalty:</label>
+              <textarea [(ngModel)]="item.reason" [ngModelOptions]="{standalone: true}" [readonly]="item.statusOfComplaint"></textarea>
+              <button *ngIf="!item.statusOfComplaint" class="btn btn-outline-success" type="submit">Add penalty</button>
+            </form>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

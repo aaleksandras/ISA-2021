@@ -4,9 +4,13 @@ import com.example.backend.email.EmailSender;
 import com.example.backend.enums.StatusOfPenalty;
 import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.penalty.Penalty;
+import com.example.backend.model.reservation.Reservation;
+import com.example.backend.model.reservation.ReservationEntity;
+import com.example.backend.model.reservation.Revision;
 import com.example.backend.model.user.*;
 import com.example.backend.repository.*;
 import com.example.backend.service.IUserService;
+import com.example.backend.web.dto.CommentsDTO;
 import com.example.backend.web.dto.CreateUserDto;
 import com.example.backend.web.dto.NewPenaltyDTO;
 import com.example.backend.web.mapper.place.UserMapper;
@@ -16,10 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -46,6 +47,15 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private PenaltyRepository penaltyRepository;
+
+    @Autowired
+    private RevisionRepository revisionRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+
+    @Autowired
+    private ReservationEntityRepository reservationEntityRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -145,9 +155,11 @@ public class UserServiceImpl implements IUserService {
         nextMonth.setMonth(today.getMonth() + 1);
         nextMonth.setDate(1);
         Penalty penalty = new Penalty(dto, nextMonth);
-        Client client = clientRepository.getById(dto.getId());
+        User client = userRepository.findByEmail(dto.getUsername());
+        penalty.setUsername(client.getUsername());
         client.getListOfPenalties().add(penalty);
-        clientRepository.save(client);
+        penaltyRepository.save(penalty);
+        userRepository.save(client);
 
     }
 
@@ -159,9 +171,70 @@ public class UserServiceImpl implements IUserService {
         } else {
             penalty.setStatusOfPenalty(StatusOfPenalty.REJECTED);
         }
+        penaltyRepository.save(penalty);
     }
 
+    @Override
+    public List<CommentsDTO> getComments(UUID id) {
+        //TODO Dobaviti revizije za korisnika sa id
+        List<Revision> allRevisions = revisionRepository.findAll();
+        List<CommentsDTO> comments = new ArrayList<>();
+        System.out.println("------------------------------------------");
+        System.out.println(allRevisions);
+        for(Revision r  : allRevisions){
+            System.out.println("uslo je");
+            comments.add(new CommentsDTO(r));
+        }
+        return comments;
+//        List<Revision> allRevisions = revisionRepository.findAllById(Collections.singleton(id));
+//        System.out.println(" xxxxx");
+//        System.out.println(allRevisions.size());
+//        List<CommentsDTO> comments = new ArrayList<>();
+//        for(Revision r  : allRevisions){
+//            comments.add(new CommentsDTO(r));
+//        }
+//        return comments;
 
+
+//        List<Reservation> allReservations = reservationRepository.findAll();
+//        List<Revision> filteredRevisions = new ArrayList<>();
+//        List<ReservationEntity> =.
+////        for(Reservation r : allReservations){
+////            if(r.getReservation().getId()==)
+////        }
+
+    }
+
+    @Override
+    public List<NewPenaltyDTO> getPenalties() {
+        List<Penalty> penalties = penaltyRepository.findAll();
+        List<NewPenaltyDTO> dtos = new ArrayList<>();
+        for(Penalty p:penalties)
+        {
+            if(p.getStatusOfPenalty().equals(StatusOfPenalty.NEW))
+            {
+                NewPenaltyDTO dto = new NewPenaltyDTO(p);
+                dtos.add(dto);
+            }
+        }
+        return  dtos;
+    }
+
+    @Override
+    public List<NewPenaltyDTO> getMyPenalties(UUID id) {
+        User u = userRepository.findUserById(id);
+        List<Penalty> penalties = penaltyRepository.findAll();
+        List<NewPenaltyDTO> dtos = new ArrayList<>();
+        for(Penalty p:penalties)
+        {
+            if(p.getEndDate().after(new Date()) && p.getUsername().equals(u.getUsername()))
+            {
+                NewPenaltyDTO dto = new NewPenaltyDTO(p);
+                dtos.add(dto);
+            }
+        }
+        return dtos;
+    }
 
 
 }

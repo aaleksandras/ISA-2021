@@ -23,8 +23,12 @@ import { ReservationPageComponent } from './reservation-page/reservation-page.co
 import { AllReservationComponent } from './all-reservation/all-reservation.component';
 import { AdminReservationComponent } from './admin-reservation/admin-reservation.component';
 import { EndedReservationsComponent } from './ended-reservations/ended-reservations.component';
+import { ViewComentsComponent } from './view-coments/view-coments.component';
+import { ViewPenaltiesComponent } from './view-penalties/view-penalties.component';
+import { LoyalityProgramComponent } from './loyality-program/loyality-program.component';
+import { MyPenaltiesComponent } from './app/my-penalties/my-penalties.component';
 @NgModule({
-  declarations: [AppComponent, VerificationRequestComponent, ProfileComponent, AddAdminComponent, ChangePasswordComponent, DeleteUsersComponent, DeleteEntitiesComponent, ReservationComponent, DeleteAccountRequestsComponent, IncomeComponent, ReservationPageComponent, AllReservationComponent, AdminReservationComponent, EndedReservationsComponent],
+  declarations: [AppComponent, VerificationRequestComponent, ProfileComponent, AddAdminComponent, ChangePasswordComponent, DeleteUsersComponent, DeleteEntitiesComponent, ReservationComponent, DeleteAccountRequestsComponent, IncomeComponent, ReservationPageComponent, AllReservationComponent, AdminReservationComponent, EndedReservationsComponent, ViewComentsComponent, ViewPenaltiesComponent, LoyalityProgramComponent, MyPenaltiesComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

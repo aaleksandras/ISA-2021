@@ -4,10 +4,7 @@ import com.example.backend.email.EmailSender;
 import com.example.backend.enums.StatusOfComplaint;
 import com.example.backend.enums.StatusOfReservation;
 import com.example.backend.enums.StatusOfRevision;
-import com.example.backend.model.reservation.AvailableDay;
-import com.example.backend.model.reservation.Reservation;
-import com.example.backend.model.reservation.ReservationEntity;
-import com.example.backend.model.reservation.Term;
+import com.example.backend.model.reservation.*;
 import com.example.backend.model.user.User;
 import com.example.backend.repository.*;
 import com.example.backend.service.IReservationService;
@@ -45,6 +42,8 @@ public class ReservationServiceImpl implements IReservationService {
 
     @Autowired
     private EmailSender sender;
+    @Autowired
+    private RevisionRepository revisionRepository;
 
     @Override
     public UUID create(ReservationDTO dto) {
@@ -173,6 +172,7 @@ public class ReservationServiceImpl implements IReservationService {
         Reservation r = reservationRepository.getById(dto.getId());
         r.setRevision(dto.getRevision());
         r.setMark(dto.getMark());
+        Revision revision =new Revision(dto, r);
         if (dto.getStatus() == null) {
             r.setStatus(StatusOfRevision.HOLD_ON);
             sender.sendComplaint("marko@gmail.com", "Nova revizija: " + r.getRevision());
@@ -185,6 +185,7 @@ public class ReservationServiceImpl implements IReservationService {
 
             r.setStatus(StatusOfRevision.DECLINED);
         }
+        revisionRepository.save(revision);
         return reservationRepository.save(r);
     }
 
