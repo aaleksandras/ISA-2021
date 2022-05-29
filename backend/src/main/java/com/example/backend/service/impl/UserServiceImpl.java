@@ -12,6 +12,7 @@ import com.example.backend.repository.*;
 import com.example.backend.service.IUserService;
 import com.example.backend.web.dto.CommentsDTO;
 import com.example.backend.web.dto.CreateUserDto;
+import com.example.backend.web.dto.LoyaltyProgramDTO;
 import com.example.backend.web.dto.NewPenaltyDTO;
 import com.example.backend.web.mapper.place.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private ReservationEntityRepository reservationEntityRepository;
+
+    @Autowired
+    private LoyaltyProgramRepository loyaltyProgramRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -234,6 +238,33 @@ public class UserServiceImpl implements IUserService {
             }
         }
         return dtos;
+    }
+
+    @Override
+    public void defineLoyalityProgram(LoyaltyProgramDTO dto) {
+        List<LoyalityProgram> list = loyaltyProgramRepository.findAll();
+        if(list.isEmpty()){
+            LoyalityProgram newProgram = new LoyalityProgram();
+            newProgram.setClientPointsForReservation(dto.getClientPointsForReservation());
+            newProgram.setPercentRegular(dto.getPercentRegular());
+            newProgram.setPercentGold(dto.getPercentGold());
+            newProgram.setPercentSilver(dto.getPercentSilver());
+            newProgram.setPointsToRegular(dto.getPointsToRegular());
+            newProgram.setPointsToGold(dto.getPointsToGold());
+            newProgram.setPointsToSilver(dto.getPointsToSilver());
+            loyaltyProgramRepository.save(newProgram);
+        }else{
+            for (LoyalityProgram updatedProgram:list){
+                updatedProgram.setClientPointsForReservation(dto.getClientPointsForReservation());
+                updatedProgram.setPercentRegular(dto.getPercentRegular());
+                updatedProgram.setPercentGold(dto.getPercentGold());
+                updatedProgram.setPercentSilver(dto.getPercentSilver());
+                updatedProgram.setPointsToRegular(dto.getPointsToRegular());
+                updatedProgram.setPointsToGold(dto.getPointsToGold());
+                updatedProgram.setPointsToSilver(dto.getPointsToSilver());
+                loyaltyProgramRepository.save(updatedProgram);
+            }
+        }
     }
 
 

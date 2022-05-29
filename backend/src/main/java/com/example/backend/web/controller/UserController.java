@@ -255,4 +255,11 @@ public class UserController {
 
         return userService.getMyPenalties(id);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_BOAT_OWNER', 'ROLE_HOUSE_OWNER', 'ROLE_INSTRUCTOR')")
+    @PostMapping("/defineLoyaltyProgram")
+    public ResponseEntity<?> defineProgram(@RequestBody LoyaltyProgramDTO dto) {
+        userService.defineLoyalityProgram(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
