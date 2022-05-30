@@ -280,5 +280,32 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public void addPointsAndChangeCategory(UUID id) {
+        Client client = clientRepository.getById(id);
+        List<LoyalityProgram> programs = loyaltyProgramRepository.findAll();
+        if(programs.isEmpty()) {
+            System.out.println("Ne postoji loyalty program");
+        } else {
+            System.out.println("postoji lojaliti");
+            //dodati klijentu poene (definisane loyalty programom) koje ostvaruje pri rezervaciji
+            LoyalityProgram program= programs.get(0);
+            System.out.println(program.getClientPointsForReservation());
+            int points = client.getPoints() + program.getClientPointsForReservation();
+            client.setPoints(points);
+            //promeniti kategoriju klijentu
+            if(points < program.getPointsToRegular()){
+                client.setLoyaltyCategory(LoyaltyCategory.NONE);
+            }else if(points < program.getPointsToSilver()){
+                client.setLoyaltyCategory(LoyaltyCategory.REGULAR);
+            }else if(points < program.getPointsToGold()){
+                client.setLoyaltyCategory(LoyaltyCategory.SILVER);
+            }else{
+                client.setLoyaltyCategory(LoyaltyCategory.GOLD);
+            }
+        }
+        clientRepository.save(client);
+    }
+
 
 }

@@ -26,4 +26,6 @@ public interface IUserService extends UserDetailsService {
     List<NewPenaltyDTO> getMyPenalties(UUID id);
 
     public void defineLoyalityProgram(LoyaltyProgramDTO dto);
+
+    public void addPointsAndChangeCategory(UUID id);
 }

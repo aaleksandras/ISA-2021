@@ -45,6 +45,9 @@ public class ReservationServiceImpl implements IReservationService {
     @Autowired
     private RevisionRepository revisionRepository;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     @Override
     public UUID create(ReservationDTO dto) {
         ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -73,6 +76,9 @@ public class ReservationServiceImpl implements IReservationService {
                 availableDayList.add(availableDay);
             }
         }
+        //dodati poene i promeniti kategoriju klijentu
+        userService.addPointsAndChangeCategory(dto.getUserId());
+
         Reservation r = new Reservation();
         Term term = new Term();
         term.setStartDate(dto.getStartDate());
