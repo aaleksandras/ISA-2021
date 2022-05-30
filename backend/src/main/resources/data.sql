@@ -22,16 +22,16 @@ insert into administrators(id, is_first_login)
 values ('623a2230-17fa-4fa6-b96f-291803e84f0b', false);
 
 insert into boat_owners(id, description)
-values ('6607774e-d6fb-4748-b31b-0b5c8ea69210', 'Top sam vam!');
-
-insert into house_owners(id, description)
 values ('8e4dec87-d2de-4544-abd3-b3814a5f95db', 'Top sam vam!');
 
-insert into instructors(id, description)
+insert into house_owners(id, description)
 values ('986c9a6f-be20-4101-8873-d943d3d2c76f', 'Top sam vam!');
 
-insert into clients(id)
-values ('450ed6c3-fe1e-4840-b4dd-641b60247c2f');
+insert into instructors(id, description)
+values ('450ed6c3-fe1e-4840-b4dd-641b60247c2f', 'Top sam vam!');
+
+insert into clients(id, penalty, loyalty_category, points)
+values ('6607774e-d6fb-4748-b31b-0b5c8ea69210', 0, 0 , 0);
 
 insert into roles (id, deleted, name)
 values ('380b2cf1-7f15-4694-8fb7-9a3246a10691', false, 'ROLE_ADMINISTRATOR'),

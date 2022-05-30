@@ -47,6 +47,12 @@ export class ProfileComponent implements OnInit {
           phoneNumber: new FormControl(this.user.phoneNumber, [
             Validators.required,
           ]),
+          points: new FormControl({ value: this.user.points, disabled: true }, [
+            Validators.required,
+          ]),
+          loyaltyCategory: new FormControl({ value: this.user.loyaltyCategory, disabled: true }, [
+            Validators.required,
+          ]),
         },
         {
           validators: [this.matchPassword.validate],

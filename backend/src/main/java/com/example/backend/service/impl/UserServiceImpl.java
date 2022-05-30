@@ -1,6 +1,7 @@
 package com.example.backend.service.impl;
 
 import com.example.backend.email.EmailSender;
+import com.example.backend.enums.LoyaltyCategory;
 import com.example.backend.enums.StatusOfPenalty;
 import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.penalty.Penalty;
@@ -71,6 +72,8 @@ public class UserServiceImpl implements IUserService {
         switch (dto.getTypeOfUser()) {
             case "Client":
                 Client client = (Client) mapDtoToUser(new Client(), dto, TypeOfUser.CLIENT, "ROLE_CLIENT");
+                client.setPoints(0);
+                client.setLoyaltyCategory(LoyaltyCategory.NONE);
                 clientRepository.save(client);
                 return client;
             case "Boat Owner":
@@ -148,7 +151,17 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public CreateUserDto getById(UUID id) {
+        User user = userRepository.findUserById(id);
         CreateUserDto dto = userMapper.fromUserToDto(userRepository.findUserById(id));
+        if(user.getTypeOfUser().equals(TypeOfUser.CLIENT)){
+            Client client = clientRepository.getById(id);
+            dto.setLoyaltyCategory(client.getLoyaltyCategory().toString());
+            dto.setPoints(client.getPoints());
+        }else{
+            dto.setLoyaltyCategory("NONE");
+            dto.setPoints(0);
+        }
+
         return dto;
     }
 

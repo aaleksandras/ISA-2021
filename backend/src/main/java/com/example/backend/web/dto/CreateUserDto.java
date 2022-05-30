@@ -18,4 +18,6 @@ public class CreateUserDto {
     String phoneNumber;
     String typeOfUser;
     String description;
+    String loyaltyCategory;
+    int points;
 }
