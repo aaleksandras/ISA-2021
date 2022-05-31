@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoyalityProgramComponent } from './loyality-program.component';
+import { LoyaltyProgramComponent } from './loyalty-program.component';
 
-describe('LoyalityProgramComponent', () => {
-  let component: LoyalityProgramComponent;
-  let fixture: ComponentFixture<LoyalityProgramComponent>;
+describe('LoyaltyProgramComponent', () => {
+  let component: LoyaltyProgramComponent;
+  let fixture: ComponentFixture<LoyaltyProgramComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoyalityProgramComponent ]
+      declarations: [ LoyaltyProgramComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoyalityProgramComponent);
+    fixture = TestBed.createComponent(LoyaltyProgramComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -17,6 +17,7 @@
         <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/view-comments" routerLinkActive="active">View comments </a>
         <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/view-penalties" routerLinkActive="active">View penalties </a>
         <a *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success mx-2" routerLink="/admin-reservation" routerLinkActive="active">All Reservation </a>
+        <a *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success mx-2" routerLink="/loyalty-program" routerLinkActive="active">Define loyalty program </a>
     </div>
     <form class="form-inline">
         <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/registration" routerLinkActive="active">Sing Up</a>

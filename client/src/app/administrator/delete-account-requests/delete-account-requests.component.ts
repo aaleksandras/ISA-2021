@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DeleteRequestModel } from 'src/app/model/DeleteRequestModel';
+import { DeleteRequestModel } from '../../model/DeleteRequestModel';
 import { AdminService } from '../admin.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportModel } from 'src/app/model/ReportModel';
+import { ReportModel } from '../../model/ReportModel';
 import { AdminService } from '../admin.service';
 
 @Component({

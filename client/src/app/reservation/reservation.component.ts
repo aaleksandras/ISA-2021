@@ -26,7 +26,8 @@ export class ReservationComponent implements OnInit {
     startDate: new Date,
     startTime: '',
     numberOfDay: 0,
-    type: 0
+    type: 0,
+    userID: ''
   }
 
   dateStartAdventure:any;
@@ -76,6 +77,8 @@ export class ReservationComponent implements OnInit {
   }
 
   searachEntity = () => {
+    const a:any = this.authServie.getId();
+    this.reservationSearch.userID = a.toString();
     if(this.adventrueFlag){
       this.reservatioService.searchAdventure(this.reservationSearch).subscribe(
         (res:any) => {

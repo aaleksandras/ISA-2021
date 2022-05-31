@@ -256,10 +256,17 @@ public class UserController {
         return userService.getMyPenalties(id);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_BOAT_OWNER', 'ROLE_HOUSE_OWNER', 'ROLE_INSTRUCTOR')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
     @PostMapping("/defineLoyaltyProgram")
     public ResponseEntity<?> defineProgram(@RequestBody LoyaltyProgramDTO dto) {
         userService.defineLoyalityProgram(dto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
+    @GetMapping("/getLoyaltyProgram")
+    public ResponseEntity<?> getLoyaltyProgram() {
+        LoyaltyProgramDTO program = userService.getLoyaltyProgram();
+        return new ResponseEntity<>(program, HttpStatus.OK);
     }
 }

@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { SignInModel } from 'src/app/model/SignInModel';
+import { SignInModel } from '../../model/SignInModel';
 import { AuthService } from '../auth.service';
 
 @Component({

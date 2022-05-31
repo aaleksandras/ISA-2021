@@ -30,4 +30,6 @@ public interface IUserService extends UserDetailsService {
     public void addPointsAndChangeCategory(UUID id);
 
     Double getNewPrice(Double price, UUID id);
+
+    LoyaltyProgramDTO getLoyaltyProgram();
 }

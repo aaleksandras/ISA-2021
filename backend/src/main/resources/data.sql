@@ -196,3 +196,6 @@ values ('43eeb758-2031-41c2-a85b-e3268b47dd9f', 'wifi'),
 insert into percentages_from_reservations (id, percentage) values ('24eeb758-2031-41c2-a85b-e3268b47dd9f', 10);
 
 insert into revision(id, user_id, reservation_id,content, mark, status, deleted) values ('60699e7e-deab-11ec-9d64-0242ac120002', '6607774e-d6fb-4748-b31b-0b5c8ea69210', '5b247a0a-d484-11ec-9d64-0242ac120002', 'Pocepao je zavese', 1, 0, false);
+
+insert into loyality_program (id_program, percent_gold, percent_silver, percent_regular, points_to_gold, points_to_silver, points_to_regular, client_points_for_reservation)
+values ('b5a3aafc-e058-11ec-9d64-0242ac120002', 20, 15, 10 ,50, 30, 10, 5)

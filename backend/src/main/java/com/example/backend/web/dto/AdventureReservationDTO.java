@@ -13,5 +13,6 @@ public class AdventureReservationDTO {
     public Integer maxPersons;
     public String address;
     public Double price;
+    public Double discountedPrice;
     public String img;
 }

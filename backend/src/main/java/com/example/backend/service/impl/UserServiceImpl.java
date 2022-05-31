@@ -332,5 +332,27 @@ public class UserServiceImpl implements IUserService {
         return newPrice;
     }
 
+    @Override
+    public LoyaltyProgramDTO getLoyaltyProgram() {
+        List<LoyalityProgram> programs = loyaltyProgramRepository.findAll();
+        if (programs.isEmpty()) {
+            System.out.println("Ne postoji loyalty program");
+
+            return null;
+        } else {
+            System.out.println("postoji lojaliti");
+            LoyalityProgram program = programs.get(0);
+            LoyaltyProgramDTO dto = new LoyaltyProgramDTO();
+            dto.setPercentGold(program.getPercentGold());
+            dto.setPercentRegular(program.getPercentRegular());
+            dto.setPercentSilver(program.getPercentSilver());
+            dto.setPointsToGold(program.getPointsToGold());
+            dto.setPointsToSilver(program.getPointsToSilver());
+            dto.setPointsToRegular(program.getPointsToRegular());
+            dto.setClientPointsForReservation(program.getClientPointsForReservation());
+
+            return dto;
+        }
+    }
 
 }

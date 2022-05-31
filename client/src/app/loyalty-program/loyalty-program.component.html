@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center">
+  <form [formGroup]="programForm" class="form-group w-25" (ngSubmit)="onSubmit()">
+
+      <app-input label="Points To Regular" [control]="getField('pointsToRegular')"></app-input>
+      <app-input label="Points To Silver" [control]="getField('pointsToSilver')"></app-input>
+      <app-input label="Points To Gold" [control]="getField('pointsToGold')"></app-input>
+
+      <app-input label="Percent Regular" [control]="getField('percentRegular')"></app-input>
+      <app-input label="Percent Silver" [control]="getField('percentSilver')"></app-input>
+      <app-input label="Percent Gold" [control]="getField('percentGold')"></app-input>
+
+      <app-input label="Client Points For Reservation" [control]="getField('clientPointsForReservation')"></app-input>
+      
+      <button class="btn btn-success w-100"  style="margin-bottom:10px" type="submit">Submit</button>
+  </form>
+
+</div>

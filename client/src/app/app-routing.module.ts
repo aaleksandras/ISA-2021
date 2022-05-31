@@ -18,6 +18,7 @@ import {EndedReservationsComponent} from './ended-reservations/ended-reservation
 import {AdminReservationComponent} from "./admin-reservation/admin-reservation.component";
 import { ViewComentsComponent } from './view-coments/view-coments.component';
 import { ViewPenaltiesComponent } from './view-penalties/view-penalties.component';
+import { LoyaltyProgramComponent } from './loyalty-program/loyalty-program.component';
 
 const routes: Routes = [
   {
@@ -95,7 +96,12 @@ const routes: Routes = [
   {
     path: 'view-penalties',
     component: ViewPenaltiesComponent
+  },
+  {
+    path: 'loyalty-program',
+    component: LoyaltyProgramComponent
   }
+
 ];
 
 @NgModule({

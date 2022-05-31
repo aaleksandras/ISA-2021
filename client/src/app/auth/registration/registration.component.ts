@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RegistrationModel } from 'src/app/model/RegistrationModel';
+import { RegistrationModel } from '../../model/RegistrationModel';
 import { MatchPassword } from '../../shared/validators/match-password';
 import { RegistrationService } from '../registration.service';
 

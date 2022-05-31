@@ -14,6 +14,7 @@ public class ShipReservationDTO {
     public String description;
     public String address;
     public Double price;
+    public Double discountedPrice;
     private Double length;
     private String engineNumber;
     private Double enginePower;
