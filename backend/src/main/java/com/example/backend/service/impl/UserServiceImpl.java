@@ -307,5 +307,30 @@ public class UserServiceImpl implements IUserService {
         clientRepository.save(client);
     }
 
+    @Override
+    public Double getNewPrice(Double price, UUID id) {
+        Double newPrice = 0.0;
+        Client client = clientRepository.getById(id);
+        List<LoyalityProgram> programs = loyaltyProgramRepository.findAll();
+        if (programs.isEmpty()) {
+            System.out.println("Ne postoji loyalty program");
+        } else {
+            System.out.println("postoji lojaliti");
+            LoyalityProgram program = programs.get(0);
+
+            if (client.getLoyaltyCategory().equals(LoyaltyCategory.NONE)) {
+                newPrice = price;
+            } else if (client.getLoyaltyCategory().equals(LoyaltyCategory.REGULAR)) {
+                newPrice = price - price * program.getPercentRegular() * 0.01;
+
+            } else if (client.getLoyaltyCategory().equals(LoyaltyCategory.SILVER)) {
+                newPrice = price - price * program.getPercentSilver() * 0.01;
+            } else {
+                newPrice = price - price * program.getPercentGold() * 0.01;
+            }
+        }
+        return newPrice;
+    }
+
 
 }

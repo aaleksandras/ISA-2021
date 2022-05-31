@@ -28,4 +28,6 @@ public interface IUserService extends UserDetailsService {
     public void defineLoyalityProgram(LoyaltyProgramDTO dto);
 
     public void addPointsAndChangeCategory(UUID id);
+
+    Double getNewPrice(Double price, UUID id);
 }

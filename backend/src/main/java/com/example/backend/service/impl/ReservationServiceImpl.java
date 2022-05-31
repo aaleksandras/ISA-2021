@@ -76,6 +76,10 @@ public class ReservationServiceImpl implements IReservationService {
                 availableDayList.add(availableDay);
             }
         }
+
+        //Sracunaj popust
+        Double newPrice = userService.getNewPrice(reservation.getPrice(), dto.getUserId());
+
         //dodati poene i promeniti kategoriju klijentu
         userService.addPointsAndChangeCategory(dto.getUserId());
 
@@ -89,7 +93,7 @@ public class ReservationServiceImpl implements IReservationService {
         r.setTerm(term);
         r.setStatusOfReservation(StatusOfReservation.SCHEDULED);
         r.setReservation(reservation);
-        double p = reservation.getPrice() * dto.getNumberOfDay();
+        double p = newPrice * dto.getNumberOfDay();
         r.setPrice(p);
 
         r.setUser(user);
