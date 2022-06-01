@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReservationEntityService } from './service/reservation-entity.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
+import { LoyaltyProgramService } from '../services/loyalty-program/loyalty-program.service';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,12 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private reservationEntityService: ReservationEntityService,
+    private loyaltyProgramService: LoyaltyProgramService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.loyaltyProgramService.removedPenalty().subscribe((res) => {});
     this.entityType = this.route.snapshot.data.entity;
     console.log(this.entityType);
     if (!this.entityType) {

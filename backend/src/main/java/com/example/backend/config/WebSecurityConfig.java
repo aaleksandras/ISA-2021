@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/reservations/**").permitAll()
                 .antMatchers("/api/reservation-entity").permitAll()
                 .antMatchers("/api/file/**").permitAll()
+                .antMatchers("/api/user/removePenalties").permitAll()
             .anyRequest().authenticated().and()
             .cors().and()
             .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userService), BasicAuthenticationFilter.class);

@@ -355,4 +355,12 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public void removedPenalties(Client client) {
+        Client newClient = clientRepository.getById(client.getId());
+        newClient.setPenalty(0);
+        clientRepository.save(newClient);
+
+    }
+
 }

@@ -6,6 +6,7 @@ import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.reservation.PercentageFromReservations;
 import com.example.backend.model.reservation.Reservation;
 import com.example.backend.model.user.Administrator;
+import com.example.backend.model.user.Client;
 import com.example.backend.model.user.DeleteAccountRequest;
 import com.example.backend.model.user.User;
 import com.example.backend.repository.*;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,9 @@ public class UserController {
     PercentageFromReservationsRepository percentageFromReservationsRepository;
     @Autowired
     ReservationRepository reservationRepository;
+
+    @Autowired
+    ClientRepository clientRepository;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CLIENT','ROLE_HOUSE_OWNER','ROLE_BOAT_OWNER','ROLE_INSTRUCTOR')")
     @GetMapping("/{id}")
@@ -269,4 +274,19 @@ public class UserController {
         LoyaltyProgramDTO program = userService.getLoyaltyProgram();
         return new ResponseEntity<>(program, HttpStatus.OK);
     }
+    @PostMapping("/removePenalties")
+    public ResponseEntity<?> removePenalties() {
+        LocalDate now = LocalDate.now();
+        int day= now.getDayOfMonth();
+
+        List<Client> users = clientRepository.findAll();
+
+        for(Client u:users) {
+            if (day == 1) {
+                userService.removedPenalties(u);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

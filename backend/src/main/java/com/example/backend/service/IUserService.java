@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.model.user.Client;
 import com.example.backend.model.user.User;
 import com.example.backend.web.dto.CommentsDTO;
 import com.example.backend.web.dto.CreateUserDto;
@@ -32,4 +33,5 @@ public interface IUserService extends UserDetailsService {
     Double getNewPrice(Double price, UUID id);
 
     LoyaltyProgramDTO getLoyaltyProgram();
+    public void removedPenalties(Client client);
 }

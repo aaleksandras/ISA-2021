@@ -19,4 +19,9 @@ export class LoyaltyProgramService {
     return this.http.get<LoyaltyProgramModel>('http://localhost:8080/api/user/getLoyaltyProgram', { observe: 'response' });
   }
 
+  removedPenalty() {
+    console.log('uslo u post')
+    return this.http.post('http://localhost:8080/api/user/removePenalties', { observe: 'response' });
+  }
+
 }
