@@ -11,8 +11,9 @@
         <app-input label="City" [control]="getField('city')"></app-input>
         <app-input label="Country" [control]="getField('country')"></app-input>
         <app-input label="Phone number" [control]="getField('phoneNumber')"></app-input>
-        <app-input label="Points" [control]="getField('points')"></app-input>
-        <app-input label="Loyalty category" [control]="getField('loyaltyCategory')"></app-input>
+        <app-input *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_CLIENT'" label="Points" [control]="getField('points')"></app-input>
+        <app-input *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_CLIENT'" label="Loyalty category" [control]="getField('loyaltyCategory')"></app-input>
+        <app-input *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_CLIENT'" label="Penalties" [control]="getField('penalties')"></app-input>
         
         <button class="btn btn-success w-100"  style="margin-bottom:10px" type="submit">Submit</button>
         <label class="text-danger" *ngIf="registrationForm.errors && registrationForm.errors.passwordDontMatch">

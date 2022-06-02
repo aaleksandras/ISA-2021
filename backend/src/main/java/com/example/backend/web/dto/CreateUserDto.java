@@ -20,4 +20,5 @@ public class CreateUserDto {
     String description;
     String loyaltyCategory;
     int points;
+    int penalties;
 }

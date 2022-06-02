@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private matchPassword: MatchPassword,
     private registrationService: RegistrationService,
-    private authService: AuthService,
+    public authService: AuthService,
     private profileService: ProfileService
   ) {}
 
@@ -53,6 +53,9 @@ export class ProfileComponent implements OnInit {
           loyaltyCategory: new FormControl({ value: this.user.loyaltyCategory, disabled: true }, [
             Validators.required,
           ]),
+          penalties: new FormControl({ value: this.user.penalties, disabled: true }, [
+            Validators.required,
+          ]),
         },
         {
           validators: [this.matchPassword.validate],
@@ -79,4 +82,8 @@ export class ProfileComponent implements OnInit {
         );
       });
   };
+
+  onSignOutClick = () => {
+    this.authService.doLogout();
+  }
 }

@@ -157,9 +157,11 @@ public class UserServiceImpl implements IUserService {
             Client client = clientRepository.getById(id);
             dto.setLoyaltyCategory(client.getLoyaltyCategory().toString());
             dto.setPoints(client.getPoints());
+            dto.setPenalties(client.getPenalty());
         }else{
             dto.setLoyaltyCategory("NONE");
             dto.setPoints(0);
+            dto.setPenalties(0);
         }
 
         return dto;
