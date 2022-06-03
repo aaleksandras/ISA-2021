@@ -185,13 +185,22 @@ public class ReservationServiceImpl implements IReservationService {
         Revision revision =new Revision(dto, r);
         if (dto.getStatus() == null) {
             r.setStatus(StatusOfRevision.HOLD_ON);
-            sender.sendComplaint("marko@gmail.com", "Nova revizija: " + r.getRevision());
+            try {
+                sender.sendComplaint("marko@gmail.com", "Nova revizija: " + r.getRevision());
+            } catch (Exception e) {
+            }
         } else if (dto.getStatus() == 1) {
             r.setStatus(StatusOfRevision.ACCEPTED);
-            sender.sendComplaint(r.getUser().getEmail(),  "Prihvacena revizija: " + r.getRevision());
+            try {
+                sender.sendComplaint(r.getUser().getEmail(),  "Prihvacena revizija: " + r.getRevision());
+            } catch (Exception e) {
+            }
 
         } else if (dto.getStatus() == 0) {
-            sender.sendComplaint(r.getUser().getEmail(),  "Odbijena revizija: " + r.getRevision());
+            try {
+                sender.sendComplaint(r.getUser().getEmail(), "Odbijena revizija: " + r.getRevision());
+            } catch (Exception e) {
+            }
 
             r.setStatus(StatusOfRevision.DECLINED);
         }
@@ -206,10 +215,17 @@ public class ReservationServiceImpl implements IReservationService {
         r.setAnswer(dto.getAnswer());
         if (dto.getStatus() == 0) {
             r.setStatusOfComplaint(StatusOfComplaint.SEND);
-            sender.sendComplaint("marko@gmail.com", "Nova zalba: " + r.getComplaint());
+            try {
+                sender.sendComplaint("marko@gmail.com", "Nova zalba: " + r.getComplaint());
+            } catch (Exception e) {
+            }
+
         } else if (dto.getStatus() == 1) {
             r.setStatusOfComplaint(StatusOfComplaint.ANSWERED);
-            sender.sendComplaint(r.getUser().getEmail(), "Odgovor na zalbu: " + r.getAnswer());
+            try {
+                sender.sendComplaint(r.getUser().getEmail(), "Odgovor na zalbu: " + r.getAnswer());
+            } catch (Exception e) {
+            }
 
         }
         return reservationRepository.save(r);

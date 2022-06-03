@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ReservationService } from './reservation.service';
+import { RegistrationService } from '../auth/registration.service';
 
 @Component({
   selector: 'app-reservation',
@@ -9,7 +10,11 @@ import { ReservationService } from './reservation.service';
 })
 
 export class ReservationComponent implements OnInit {
+  user: any;
   adventrueFlag:boolean = false
+  penalties : number = 0;
+
+  brojDozvoljenih : number = 3;
   boatFlag:boolean = false;
   cottageFlag:boolean = false;
   listOfEntity: any[] = [];
@@ -32,9 +37,14 @@ export class ReservationComponent implements OnInit {
 
   dateStartAdventure:any;
   timeStrAdventure:any;
-  constructor(private reservatioService: ReservationService, private authServie: AuthService) { }
+  constructor(private reservatioService: ReservationService, public authServie: AuthService, private registrationService: RegistrationService) { }
 
   ngOnInit(): void {
+    const a:any = this.authServie.getId();
+    this.registrationService.find(a).subscribe((res) => {
+      this.user = res.body;
+      this.penalties = this.user.penalties;
+    });
   }
 
 
@@ -108,15 +118,24 @@ export class ReservationComponent implements OnInit {
 
   reservEtity = (id:any) =>{
     const a:any = this.authServie.getId();
+    let tri = 3;
+    let pen = this.penalties;
+
     this.reservationAdventure.userId = a.toString() ;
     this.reservationAdventure.reservationEntityId = id;
     this.reservationAdventure.numberOfDay = this.reservationSearch.numberOfDay;
-    this.reservatioService.createR(this.reservationAdventure).subscribe(
-      (res:any) => {
-        alert("Successfuly")
-      }, error =>{
-        alert("Error");
-      }
-    )
+    if(pen < tri){
+      this.reservatioService.createR(this.reservationAdventure).subscribe(
+        (res:any) => {
+          alert("Successfuly")
+        }, error =>{
+          alert("Error");
+        }
+      )
+
+    }else{
+        alert("You cannot book an appointment, you have 3 or more penalties")
+    }
+   
   }
 }
