@@ -81,7 +81,7 @@ export class EndedReservationsComponent implements OnInit {
   onSubmitRevision(item: any) {
     console.log(item);
     if (item.revision != null && item.mark != null && item.revision.length > 0 && parseInt(item.mark) > 0 && parseInt(item.mark) < 6 ) {
-      this.reservationService.createRevision({id: item.id, revision: item.revision, mark: item.mark}).subscribe(response => {
+      this.reservationService.createRevision({id: item.id, userID:this.authService.getId(), revision: item.revision, mark: item.mark}).subscribe(response => {
         console.log(response);
         alert('Revizija sacuvana!');
         this.list = [];

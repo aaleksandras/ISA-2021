@@ -182,7 +182,10 @@ public class ReservationServiceImpl implements IReservationService {
         Reservation r = reservationRepository.getById(dto.getId());
         r.setRevision(dto.getRevision());
         r.setMark(dto.getMark());
+        User user = userRepository.getById(dto.getUserID());
+
         Revision revision =new Revision(dto, r);
+        revision.setUser(user);
         if (dto.getStatus() == null) {
             r.setStatus(StatusOfRevision.HOLD_ON);
             try {
