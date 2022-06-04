@@ -26,6 +26,15 @@ export class ComentsService {
       })
     );
   };
+
+  sendPenalty1 = (id: any,penalty: Penalty) => {
+    return this.http.post('http://localhost:8080/api/user/addPenalty1/',penalty ).pipe(
+      map((responseData: any) => {
+        return responseData;
+      })
+    );
+  };
+
   getPenalties = (id: any) => {
     return this.http.get('http://localhost:8080/api/user/getPenalties/'+id).pipe(
       map((responseData: any) => {

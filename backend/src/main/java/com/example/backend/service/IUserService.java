@@ -18,6 +18,7 @@ public interface IUserService extends UserDetailsService {
     User updateUser(UUID id ,CreateUserDto dto);
     CreateUserDto getById(UUID id);
     public void addPenaltyToUser(NewPenaltyDTO dto);
+    public void addPenaltyToUser1(NewPenaltyDTO dto);
     public void changePenaltyStatus(String status, UUID id);
 
     List<CommentsDTO> getComments(UUID id);

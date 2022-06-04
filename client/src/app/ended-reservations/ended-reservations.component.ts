@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ReservationService } from '../reservation/reservation.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { ComentsService } from '../services/comments/comments.service';
+import { Penalty } from '../model/PenaltyModel';
 
 @Component({
   selector: 'app-ended-reservations',
@@ -13,7 +15,7 @@ export class EndedReservationsComponent implements OnInit {
   list:any[] = [];
 
 
-  constructor(private reservationService:ReservationService, private authService:AuthService) {
+  constructor(private reservationService:ReservationService, public authService:AuthService, private CommentsService:ComentsService) {
     console.log("BBB")
   }
 
@@ -79,7 +81,7 @@ export class EndedReservationsComponent implements OnInit {
 
 
   onSubmitRevision(item: any) {
-    console.log(item);
+    console.log(item)
     if (item.revision != null && item.mark != null && item.revision.length > 0 && parseInt(item.mark) > 0 && parseInt(item.mark) < 6 ) {
       this.reservationService.createRevision({id: item.id, userID:this.authService.getId(), revision: item.revision, mark: item.mark}).subscribe(response => {
         console.log(response);
@@ -102,5 +104,15 @@ export class EndedReservationsComponent implements OnInit {
     }
 
   }
+
+  addPenalty = (userID:any, email:any) =>{
+    console.log(userID);
+    let penalty: Penalty = {username: email, reason: "Nije se pojavio na terminu", userComment: ""}
+      this.CommentsService.sendPenalty1(this.authService.getId(),penalty).subscribe(response => {
+        alert("Added penalty");
+      })
+
+  }
+
 
 }

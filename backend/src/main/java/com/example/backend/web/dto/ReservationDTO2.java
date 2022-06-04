@@ -24,4 +24,6 @@ public class ReservationDTO2 {
     private StatusOfComplaint statusOfComplaint;
     Integer mark;
     StatusOfRevision status;
+    private UUID userID;
+    private String email;
 }

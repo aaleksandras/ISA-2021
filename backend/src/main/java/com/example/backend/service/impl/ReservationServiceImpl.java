@@ -4,6 +4,7 @@ import com.example.backend.email.EmailSender;
 import com.example.backend.enums.StatusOfComplaint;
 import com.example.backend.enums.StatusOfReservation;
 import com.example.backend.enums.StatusOfRevision;
+import com.example.backend.enums.TypeOfUser;
 import com.example.backend.model.reservation.*;
 import com.example.backend.model.user.User;
 import com.example.backend.repository.*;
@@ -151,11 +152,20 @@ public class ReservationServiceImpl implements IReservationService {
         ZoneId defaultZoneId = ZoneId.systemDefault();
         LocalDate endDate = LocalDate.now();
         Date end = Date.from(endDate.atStartOfDay(defaultZoneId).toInstant());
-        List<Reservation> reservations = reservationRepository.getEndedUserByReservation(end, id);
+        User user = userRepository.getById(id);
+        List<Reservation> reservations = new ArrayList<Reservation>();
+
+        if(user.getTypeOfUser().equals(TypeOfUser.CLIENT)){
+            reservations = reservationRepository.getEndedUserByReservation(end, id);
+        } else {
+            reservations = reservationRepository.getAllEndedReservation(end);
+        }
+
         List<ReservationDTO2> dtos = new ArrayList<>();
-        System.out.println(reservations.size() + "AAA");
         for (Reservation r : reservations) {
             ReservationDTO2 rdt = new ReservationDTO2();
+            rdt.setUserID(r.getUser().getId());
+            rdt.setEmail(r.getUser().getEmail());
             rdt.setId(r.getId());
             rdt.setStartDate(r.getTerm().getStartDate());
             rdt.setEndDate(r.getTerm().getEndDate());

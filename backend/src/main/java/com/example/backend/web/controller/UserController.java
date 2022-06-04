@@ -232,6 +232,14 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BOAT_OWNER', 'ROLE_HOUSE_OWNER', 'ROLE_INSTRUCTOR')")
+    @PostMapping("/addPenalty1")
+    public ResponseEntity<?> addPenaltyToUser1(@RequestBody NewPenaltyDTO dto) {
+        System.out.println("uslo u ovaj controller");
+        userService.addPenaltyToUser1(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     //@PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR')")
     @GetMapping("/del/{id}")
     public ResponseEntity<?> changePenaltyStatus(@PathVariable UUID id) {

@@ -184,6 +184,27 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public void addPenaltyToUser1(NewPenaltyDTO dto) {
+        Date today = new Date();
+        Date nextMonth = today;
+        nextMonth.setMonth(today.getMonth() + 1);
+        nextMonth.setDate(1);
+
+        Penalty penalty = new Penalty();
+        penalty.setEndDate(nextMonth);
+        penalty.setReason(dto.getReason());
+        penalty.setStatusOfPenalty(StatusOfPenalty.ACCEPTED);
+
+        User client = userRepository.findByEmail(dto.getUsername());
+        penalty.setUsername(client.getUsername());
+
+        client.getListOfPenalties().add(penalty);
+
+        penaltyRepository.save(penalty);
+        userRepository.save(client);
+    }
+
+    @Override
     public void changePenaltyStatus(String status, UUID id) {
         Penalty penalty = penaltyRepository.getById(id);
         if (status.equals("ACCEPTED")) {
