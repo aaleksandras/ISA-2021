@@ -153,12 +153,13 @@ public class UserServiceImpl implements IUserService {
     public CreateUserDto getById(UUID id) {
         User user = userRepository.findUserById(id);
         CreateUserDto dto = userMapper.fromUserToDto(userRepository.findUserById(id));
-        if(user.getTypeOfUser().equals(TypeOfUser.CLIENT)){
+        if (user.getTypeOfUser().equals(TypeOfUser.CLIENT)) {
             Client client = clientRepository.getById(id);
+            List<Penalty> penaltyList = penaltyRepository.getPenaltyByUsernameAndStatusOfPenalty(client.getUsername(), StatusOfPenalty.ACCEPTED);
             dto.setLoyaltyCategory(client.getLoyaltyCategory().toString());
             dto.setPoints(client.getPoints());
-            dto.setPenalties(client.getPenalty());
-        }else{
+            dto.setPenalties(penaltyList.size());
+        } else {
             dto.setLoyaltyCategory("NONE");
             dto.setPoints(0);
             dto.setPenalties(0);
@@ -200,7 +201,7 @@ public class UserServiceImpl implements IUserService {
         List<CommentsDTO> comments = new ArrayList<>();
         System.out.println("------------------------------------------");
         System.out.println(allRevisions);
-        for(Revision r  : allRevisions){
+        for (Revision r : allRevisions) {
             System.out.println("uslo je");
             comments.add(new CommentsDTO(r));
         }
@@ -228,15 +229,13 @@ public class UserServiceImpl implements IUserService {
     public List<NewPenaltyDTO> getPenalties() {
         List<Penalty> penalties = penaltyRepository.findAll();
         List<NewPenaltyDTO> dtos = new ArrayList<>();
-        for(Penalty p:penalties)
-        {
-            if(p.getStatusOfPenalty().equals(StatusOfPenalty.NEW))
-            {
+        for (Penalty p : penalties) {
+            if (p.getStatusOfPenalty().equals(StatusOfPenalty.NEW)) {
                 NewPenaltyDTO dto = new NewPenaltyDTO(p);
                 dtos.add(dto);
             }
         }
-        return  dtos;
+        return dtos;
     }
 
     @Override
@@ -244,10 +243,8 @@ public class UserServiceImpl implements IUserService {
         User u = userRepository.findUserById(id);
         List<Penalty> penalties = penaltyRepository.findAll();
         List<NewPenaltyDTO> dtos = new ArrayList<>();
-        for(Penalty p:penalties)
-        {
-            if(p.getEndDate().after(new Date()) && p.getUsername().equals(u.getUsername()))
-            {
+        for (Penalty p : penalties) {
+            if (p.getEndDate().after(new Date()) && p.getUsername().equals(u.getUsername())) {
                 NewPenaltyDTO dto = new NewPenaltyDTO(p);
                 dtos.add(dto);
             }
@@ -258,7 +255,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void defineLoyalityProgram(LoyaltyProgramDTO dto) {
         List<LoyalityProgram> list = loyaltyProgramRepository.findAll();
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             LoyalityProgram newProgram = new LoyalityProgram();
             newProgram.setClientPointsForReservation(dto.getClientPointsForReservation());
             newProgram.setPercentRegular(dto.getPercentRegular());
@@ -268,8 +265,8 @@ public class UserServiceImpl implements IUserService {
             newProgram.setPointsToGold(dto.getPointsToGold());
             newProgram.setPointsToSilver(dto.getPointsToSilver());
             loyaltyProgramRepository.save(newProgram);
-        }else{
-            for (LoyalityProgram updatedProgram:list){
+        } else {
+            for (LoyalityProgram updatedProgram : list) {
                 updatedProgram.setClientPointsForReservation(dto.getClientPointsForReservation());
                 updatedProgram.setPercentRegular(dto.getPercentRegular());
                 updatedProgram.setPercentGold(dto.getPercentGold());
@@ -286,23 +283,23 @@ public class UserServiceImpl implements IUserService {
     public void addPointsAndChangeCategory(UUID id) {
         Client client = clientRepository.getById(id);
         List<LoyalityProgram> programs = loyaltyProgramRepository.findAll();
-        if(programs.isEmpty()) {
+        if (programs.isEmpty()) {
             System.out.println("Ne postoji loyalty program");
         } else {
             System.out.println("postoji lojaliti");
             //dodati klijentu poene (definisane loyalty programom) koje ostvaruje pri rezervaciji
-            LoyalityProgram program= programs.get(0);
+            LoyalityProgram program = programs.get(0);
             System.out.println(program.getClientPointsForReservation());
             int points = client.getPoints() + program.getClientPointsForReservation();
             client.setPoints(points);
             //promeniti kategoriju klijentu
-            if(points < program.getPointsToRegular()){
+            if (points < program.getPointsToRegular()) {
                 client.setLoyaltyCategory(LoyaltyCategory.NONE);
-            }else if(points < program.getPointsToSilver()){
+            } else if (points < program.getPointsToSilver()) {
                 client.setLoyaltyCategory(LoyaltyCategory.REGULAR);
-            }else if(points < program.getPointsToGold()){
+            } else if (points < program.getPointsToGold()) {
                 client.setLoyaltyCategory(LoyaltyCategory.SILVER);
-            }else{
+            } else {
                 client.setLoyaltyCategory(LoyaltyCategory.GOLD);
             }
         }
@@ -360,9 +357,15 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void removedPenalties(Client client) {
         Client newClient = clientRepository.getById(client.getId());
-        newClient.setPenalty(0);
+        List<Penalty> penaltyList = penaltyRepository.getPenaltyByUsernameAndStatusOfPenalty(client.getUsername(), StatusOfPenalty.ACCEPTED);
+        for (Penalty p : penaltyList) {
+            p.setStatusOfPenalty(StatusOfPenalty.REJECTED);
+            penaltyRepository.save(p);
+        }
+        //newClient.setPenalty(0);
         clientRepository.save(newClient);
-
     }
-
 }
+
+
+

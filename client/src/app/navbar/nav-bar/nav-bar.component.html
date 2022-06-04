@@ -14,8 +14,8 @@
         <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/reservation" routerLinkActive="active">Reservations </a>
         <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/all-reservation" routerLinkActive="active">My Reservation </a>
         <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/ended-reservation" routerLinkActive="active">Ended Reservation </a>
-        <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/view-comments" routerLinkActive="active">View comments </a>
-        <a *ngIf="this.authService.isLoggedIn" class="btn btn-outline-success mx-2" routerLink="/view-penalties" routerLinkActive="active">View penalties </a>
+        <a *ngIf="this.authService.isLoggedIn && this.authService.getRole() !== 'ROLE_ADMINISTRATOR' && this.authService.getRole() !== 'ROLE_CLIENT'" class="btn btn-outline-success mx-2" routerLink="/view-comments" routerLinkActive="active">View comments </a>
+        <a *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success mx-2" routerLink="/view-penalties" routerLinkActive="active">View penalties </a>
         <a *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success mx-2" routerLink="/admin-reservation" routerLinkActive="active">All Reservation </a>
         <a *ngIf="this.authService.isLoggedIn && this.authService.getRole() === 'ROLE_ADMINISTRATOR'" class="btn btn-outline-success mx-2" routerLink="/loyalty-program" routerLinkActive="active">Define loyalty program </a>
     </div>
