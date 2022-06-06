@@ -12,6 +12,10 @@ export class ReservationEntityListComponent implements OnInit {
   public address: string = '';
   public averageMark: string = '';
   public isSearchClicked: boolean = false;
+  
+  SortbyParam = '';
+  SortDirection = 'asc';
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -72,6 +76,14 @@ export class ReservationEntityListComponent implements OnInit {
       converted = this.items;
     }
   };
+
+  onSortDirection() {
+    if (this.SortDirection === 'desc') {
+        this.SortDirection = 'asc';
+    } else {
+        this.SortDirection = 'desc';
+    }
+}
 
   onCancelSearchClick = () => {
     window.location.href = 'home';

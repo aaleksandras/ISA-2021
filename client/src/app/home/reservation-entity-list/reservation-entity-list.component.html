@@ -85,6 +85,28 @@
             >
               Cancel search
             </button>
+
+          <div
+            class="col-lg-3 col-md-3 col-sm-12 p-0"
+            style="margin-bottom: 50px; margin-left: -10px;"
+          >
+              Sort by  
+            <select [(ngModel)] = 'SortbyParam'>
+              <option value="Name">Name</option>
+              <option value="Price">Price</option>
+              <option value="Mark">Mark</option>
+            </select>
+            <button type="button" (click) = "onSortDirection()" class="btn btn-success wrn-btn"
+              style="
+                width: 100px;
+                margin-left: 20px;
+              ">
+              <i *ngIf="SortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
+              <i *ngIf="SortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
+              Sort
+            </button>  
+          </div>
+
           </div>
         </div>
       </div>
